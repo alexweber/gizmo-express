@@ -7,5 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alex Weber <alexweber15@gmail.com> (http://alexweber.com.br)",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "helmet": "^3.5.0",
+    "morgan": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.0",
+    "@types/errorhandler": "^0.0.30",
+    "@types/morgan": "^1.7.32",
+    "errorhandler": "^1.5.0",
+    "nodemon": "^1.11.0",
+    "typescript": "^2.2.1"
+  }
 }
