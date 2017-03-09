@@ -1,12 +1,10 @@
-import * as bodyParser from "body-parser";
-import * as cookieParser from "cookie-parser";
-import * as express from "express";
-import * as logger from "morgan";
-import * as path from "path";
-import errorHandler = require("errorhandler");
-import methodOverride = require("method-override");
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import * as logger from 'morgan';
+import * as path from 'path';
+import errorHandler = require('errorhandler');
 
-import { IndexRoute } from "./routes/index";
+import { IndexRoute } from './routes/index';
 
 /**
  * The server.
@@ -20,7 +18,6 @@ export class Server {
   /**
    * Bootstrap the application.
    *
-   * @class Server
    * @method bootstrap
    * @static
    * @return {ng.auto.IInjectorService} Returns the newly created injector for this app.
@@ -32,7 +29,6 @@ export class Server {
   /**
    * Constructor.
    *
-   * @class Server
    * @constructor
    */
   constructor () {
@@ -44,19 +40,6 @@ export class Server {
 
     //add routes
     this.routes();
-
-    //add api
-    this.api();
-  }
-
-  /**
-   * Create REST API routes
-   *
-   * @class Server
-   * @method api
-   */
-  public api () {
-    //empty for now
   }
 
   /**
@@ -69,12 +52,8 @@ export class Server {
     //add static paths
     this.app.use(express.static(path.join(__dirname, "public")));
 
-    //configure pug
-    this.app.set("views", path.join(__dirname, "views"));
-    this.app.set("view engine", "pug");
-
     //mount logger
-    this.app.use(logger("dev"));
+    this.app.use(logger('dev'));
 
     //mount json form parser
     this.app.use(bodyParser.json());
@@ -84,12 +63,6 @@ export class Server {
       extended: true
     }));
 
-    //mount cookie parker
-    this.app.use(cookieParser("SECRET_GOES_HERE"));
-
-    //mount override?
-    this.app.use(methodOverride());
-
     // catch 404 and forward to error handler
     this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
       err.status = 404;
@@ -97,6 +70,7 @@ export class Server {
     });
 
     //error handling
+    // @TODO check if dev & import conditionally
     this.app.use(errorHandler());
   }
 
