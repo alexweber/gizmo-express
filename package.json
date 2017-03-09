@@ -1,0 +1,11 @@
+{
+  "name": "gizmo-express",
+  "version": "0.1.0",
+  "description": "Express 4 TypeScript starter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Weber <alexweber15@gmail.com> (http://alexweber.com.br)",
+  "license": "Unlicense"
+}
