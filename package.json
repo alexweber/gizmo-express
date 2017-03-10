@@ -29,17 +29,23 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.0",
+    "@types/chai": "^3.4.35",
     "@types/config": "^0.0.32",
     "@types/debug": "^0.0.29",
     "@types/errorhandler": "^0.0.30",
     "@types/express-jwt": "^0.0.34",
+    "@types/mocha": "^2.2.39",
     "@types/mongoose": "^4.7.8",
     "@types/mongoose-paginate": "^5.0.4",
     "@types/morgan": "^1.7.32",
     "@types/node": "^7.0.8",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "concurrently": "^3.4.0",
     "errorhandler": "^1.5.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "ts-node": "^2.1.0",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1"
   }

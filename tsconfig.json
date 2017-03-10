@@ -10,10 +10,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "./"
   },
   "exclude": [
+    "bin",
+    "config",
+    "dist",
     "node_modules",
-    "dist"
+    "public",
+    "seed"
   ]
 }
