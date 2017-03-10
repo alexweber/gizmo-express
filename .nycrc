@@ -1,0 +1,28 @@
+{
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "bin",
+    "config",
+    "coverage",
+    "dist",
+    "node_modules",
+    "public",
+    "seed"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "require": [
+    "ts-node/register"
+  ],
+  "reporter": [
+    "lcov",
+    "html",
+    "text-summary"
+  ],
+  "cache": true,
+  "all": true,
+  "check-coverage": true
+}
