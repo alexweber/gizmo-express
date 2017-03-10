@@ -1,0 +1,17 @@
+[
+  {
+    "id": "root",
+    "name": "Root",
+    "description": "Root, nuff said."
+  },
+  {
+    "id": "admin",
+    "name": "Admin",
+    "description": "Can manage pretty much everything, except for root stuff"
+  },
+  {
+    "id": "customer",
+    "name": "Customer",
+    "description": "Customers can manager their own profile and sign up for stuff"
+  }
+]
