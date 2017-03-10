@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { BaseRoute } from "./route";
+import * as dbg from 'debug';
+const debug = dbg('gizmo-express:routes');
 
 /**
  * / route
@@ -16,8 +18,7 @@ export class IndexRoute extends BaseRoute {
    * @static
    */
   public static create (router: Router) {
-    //log
-    console.log("[IndexRoute::create] Creating index route.");
+    debug("[IndexRoute::create] Creating index route.");
 
     //add home page route
     router.get("/", (req: Request, res: Response, next: NextFunction) => {
