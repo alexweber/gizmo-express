@@ -4,7 +4,7 @@
   "description": "Gizmo's Express TypeScript starter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
     "lint": "tslint \"src/**/*.ts\"",
     "build": "tsc",
     "build:dev": "tsc --watch",
