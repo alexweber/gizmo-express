@@ -4,7 +4,8 @@
   "description": "Gizmo's Express TypeScript starter",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
+    "test": "NODE_ENV=test mocha --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
+    "test:dev": "NODE_ENV=test mocha --watch --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
     "lint": "tslint \"src/**/*.ts\"",
     "build": "tsc",
     "build:dev": "tsc --watch",
