@@ -1,11 +1,33 @@
+import path = require('path');
+import fs = require('fs');
+
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as logger from 'morgan';
-import * as path from 'path';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import errorHandler = require('errorhandler');
 
+import dbg = require('debug');
+const debug = dbg('gizmo-express:server');
+import { Connection } from 'mongoose';
+import mongoose = require('mongoose');
+import config = require('config');
+
+// Mongoose options.
+const mongooseOptions = {
+  // Use native ES6 promises.
+  promiseLibrary: Promise,
+  // Use native parser.
+  db: { native_parser: true },
+  // Use nearest replica set for reads.
+  replset: {
+    auto_reconnect: true,
+    readPreference: 'ReadPreference.NEAREST'
+  }
+};
+mongoose.Promise = Promise;
+const mongooseModels = path.join(__dirname, '/models');
 import { IndexRoute } from './routes/index';
 
 /**
@@ -14,6 +36,8 @@ import { IndexRoute } from './routes/index';
 export class Server {
 
   public app: express.Application;
+
+  public db: Connection;
 
   /**
    * Bootstrap the application.
@@ -94,6 +118,26 @@ export class Server {
    * Init database.
    */
   private database () {
+    fs.readdirSync(mongooseModels)
+      .filter(file => ~file.search(/^[^\.].*\.js$/))
+      .forEach(file => require(path.join(mongooseModels, file)));
 
+    // Debug mode.
+    if (config.has('db.debug') && config.get('db.debug')) {
+      mongoose.set('debug', true);
+    }
+
+    // Connect to mongo.
+    mongoose.connect(<string>config.get('db.dsn'), mongooseOptions);
+
+    this.db = mongoose.connection;
+
+    this.db.on('error', err => {
+      debug(`[db]: ${err}`);
+    });
+
+    this.db.once('open', () => {
+      debug('Connected to MongoDB!');
+    });
   }
 }
