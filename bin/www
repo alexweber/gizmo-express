@@ -3,7 +3,7 @@
 
 //module dependencies
 const server = require('../dist/server');
-const debug = require('debug')('express:server');
+const debug = require('debug')('gizmo-express:server');
 const http = require('http');
 
 //create http server
