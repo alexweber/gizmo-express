@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 import app from '../bootstrap';
 
-describe('IndexRouter:index', () => {
+describe('routes/index', () => {
 
   it('should exist', function () {
     return chai.request(app).get('/').then(res => {
