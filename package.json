@@ -24,8 +24,12 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.0",
+    "@types/config": "^0.0.32",
+    "@types/debug": "^0.0.29",
     "@types/errorhandler": "^0.0.30",
+    "@types/mongoose": "^4.7.8",
     "@types/morgan": "^1.7.32",
+    "@types/node": "^7.0.8",
     "concurrently": "^3.4.0",
     "errorhandler": "^1.5.0",
     "nodemon": "^1.11.0",
