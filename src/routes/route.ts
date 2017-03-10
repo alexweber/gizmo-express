@@ -1,13 +1,9 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Router } from 'express';
 
 import config = require('config');
 
-/**
- * Constructor
- *
- * @class BaseRoute
- */
 export abstract class BaseRouter {
+  // The route prefix, contains at the very least the API version.
   public prefix: string;
 
   constructor (public router: Router, prefix?: string) {
@@ -19,5 +15,6 @@ export abstract class BaseRouter {
     }
   }
 
-  public abstract init();
+  // Must be implemented to initialize routes.
+  public abstract init ();
 }
