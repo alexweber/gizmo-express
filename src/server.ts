@@ -61,8 +61,8 @@ export class Server {
     // Add API routes.
     this.routes();
 
-    // Serve client app.
-    this.app.use(express.static(path.join(__dirname, 'public')));
+    /// Init client app.
+    this.client();
   }
 
   /**
@@ -137,6 +137,19 @@ export class Server {
 
     this.db.once('open', () => {
       debug('Connected to MongoDB!');
+    });
+  }
+
+  /**
+   * Init client app.
+   */
+  private client () {
+    // Serve client app statically.
+    this.app.use(express.static(path.join(__dirname, 'public')));
+
+    // For all other GET requests, send back index.html so that PathLocationStrategy can be used.
+    this.app.get('/*', function (req, res) {
+      res.sendFile(path.join(__dirname + 'public/index.html'));
     });
   }
 }
