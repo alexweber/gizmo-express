@@ -32,7 +32,7 @@ import { IndexRouter } from './routes/index';
 /**
  * The server.
  */
-export class Server {
+class Server {
 
   public app: express.Application;
 
@@ -152,3 +152,5 @@ export class Server {
     });
   }
 }
+
+export default new Server().app;

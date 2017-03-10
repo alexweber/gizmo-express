@@ -1,26 +1,26 @@
-import * as mocha from 'mocha';
 import * as chai from 'chai';
-import chaiHttp = require('chai-http');
+import { expect } from 'chai';
 
-// import app from '../src/App';
+import app from '../bootstrap';
 
-chai.use(chaiHttp);
-const expect = chai.expect;
+describe('IndexRouter:index', () => {
 
-describe('baseRoute', () => {
-
-  it('should be json', () => {
-    //   return chai.request(app).get('/')
-    //     .then(res => {
-    //       expect(res.type).to.eql('application/json');
-    //     });
+  it('should exist', function () {
+    return chai.request(app).get('/').then(res => {
+      expect(res.status).to.eql(200);
+    });
   });
 
-  it('should have a message prop', () => {
-    //   return chai.request(app).get('/')
-    //     .then(res => {
-    //       expect(res.body.message).to.eql('Hello World!');
-    //     });
+  it('should serve html', () => {
+    return chai.request(app).get('/').then(res => {
+      expect(res.type).to.eql('text/html');
+    });
+  });
+
+  it('should have a placeholder message', () => {
+    return chai.request(app).get('/').then(res => {
+      expect(res['text']).to.eql('Hello from index.html\n');
+    });
   });
 
 });
