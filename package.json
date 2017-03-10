@@ -14,6 +14,7 @@
   "author": "Alex Weber <alexweber15@gmail.com> (http://alexweber.com.br)",
   "license": "Unlicense",
   "dependencies": {
+    "apicache": "^0.8.4",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
     "config": "^1.25.1",
