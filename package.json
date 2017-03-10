@@ -49,6 +49,7 @@
     "errorhandler": "^1.5.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "nyc": "^10.1.2",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "ts-node": "^2.1.0",
