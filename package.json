@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint \"src/**/*.ts\"",
     "build": "tsc",
     "build:dev": "tsc --watch",
     "start": "node ./bin/www",
