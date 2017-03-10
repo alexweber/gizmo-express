@@ -1,0 +1,15 @@
+{
+  "verbose": true,
+  "execMap": {
+    "js": "node"
+  },
+  "watch": [
+    "bin/www",
+    "config",
+    "dist"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json"
+}
