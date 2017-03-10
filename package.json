@@ -38,6 +38,7 @@
     "concurrently": "^3.4.0",
     "errorhandler": "^1.5.0",
     "nodemon": "^1.11.0",
+    "tslint": "^4.5.1",
     "typescript": "^2.2.1"
   }
 }
