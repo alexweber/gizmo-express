@@ -13,6 +13,22 @@ describe('models/User', () => {
     expect(User).to.be.a('function');
   });
 
-  // @TODO actually test middleware stuff.
+  it('should be invalid if name is empty', function (done) {
+    const u = new User();
+
+    u.validate(function (err) {
+      expect(err.errors.name).to.exist;
+      done();
+    });
+  });
+
+  it('should be invalid if id is empty', function (done) {
+    const u = new User();
+
+    u.validate(function (err) {
+      expect(err.errors.id).to.exist;
+      done();
+    });
+  });
 
 });
