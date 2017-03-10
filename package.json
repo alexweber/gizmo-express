@@ -20,6 +20,7 @@
     "express": "^4.15.2",
     "helmet": "^3.5.0",
     "mongoose": "^4.8.6",
+    "mongoose-paginate": "^5.0.3",
     "morgan": "^1.8.1"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "@types/debug": "^0.0.29",
     "@types/errorhandler": "^0.0.30",
     "@types/mongoose": "^4.7.8",
+    "@types/mongoose-paginate": "^5.0.4",
     "@types/morgan": "^1.7.32",
     "@types/node": "^7.0.8",
     "concurrently": "^3.4.0",
