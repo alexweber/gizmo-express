@@ -8,32 +8,30 @@ import { debug } from '../util/debug';
  */
 export class IndexRouter extends BaseRouter {
 
+  constructor (router: Router) {
+    super(router);
+  }
+
   /**
-   * Create the routes.
-   *
-   * @class IndexRoute
-   * @method create
-   * @static
+   * Create the index routes.
    */
-  public static create (router: Router) {
+  public init () {
     debug('[IndexRouter::create] Creating index routes.');
 
-    //add home page route
-    router.get('/', (req: Request, res: Response, next: NextFunction) => {
-      new IndexRouter().index(req, res, next);
+    // Default route.
+    this.router.get(this.prefix, (req: Request, res: Response, next: NextFunction) => {
+      this.index(req, res, next);
     });
   }
 
   /**
    * The atual index route.
    *
-   * @class IndexRoute
-   * @method index
    * @param req {Request} The express Request object.
    * @param res {Response} The express Response object.
    * @next {NextFunction} Execute the next method.
    */
   public index (req: Request, res: Response, next: NextFunction) {
-
+    res.send('index route');
   }
 }

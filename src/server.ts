@@ -103,11 +103,10 @@ export class Server {
    * Create and init Router.
    */
   private routes () {
-    let router: express.Router;
-    router = express.Router();
+    let router: express.Router = express.Router();
 
     // IndexRouter.
-    IndexRouter.create(router);
+    new IndexRouter(router).init();
 
     // Use router middleware.
     this.app.use(router);
@@ -145,11 +144,11 @@ export class Server {
    */
   private client () {
     // Serve client app statically.
-    this.app.use(express.static(path.join(__dirname, 'public')));
+    this.app.use(express.static(path.join(__dirname, '../public')));
 
     // For all other GET requests, send back index.html so that PathLocationStrategy can be used.
     this.app.get('/*', function (req, res) {
-      res.sendFile(path.join(__dirname + 'public/index.html'));
+      res.sendFile(path.join(__dirname + '../public/index.html'));
     });
   }
 }
