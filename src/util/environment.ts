@@ -1,9 +1,5 @@
-import config = require('config');
-
-const environment = config.util.getEnv('NODE_ENV');
-
 const isEnv = (name: string): boolean => {
-  return environment === name;
+  return process.env.NODE_ENV === name;
 };
 
 // Convenience helpers.
@@ -11,7 +7,7 @@ const isEnv = (name: string): boolean => {
 const isProd = () => {
   return isEnv('production');
 };
-const isStaging = () => {
+const isStage = () => {
   return isEnv('staging');
 };
 const isDev = () => {
@@ -24,7 +20,7 @@ const isTest = () => {
 export {
   isEnv,
   isProd,
-  isStaging,
+  isStage,
   isDev,
   isTest
 };
