@@ -6,24 +6,6 @@
     "dsn": "mongodb://mongo:fvx0gzldnXhpvG3wJYI2Zf1I6wkLjo@ds119020.mlab.com:19020/passport_dev",
     "debug": false
   },
-  },
-  "twitter": {
-    "key": "fIJifrCCHqmpPB452wE0fBs2u",
-    "secret": "OIi7q9TNcX3pl8PrkDitLvIJGSsMjIl5c2KQcsbYCHnUUyx21g",
-    "callback": "http://127.0.0.1:3000/v1/login/twitter/callback"
-  },
-  "facebook": {
-    "id": "346042115790255",
-    "secret": "844297b23022a72534e4bf98138ea325",
-    "callback": "http://127.0.0.1:3000/v1/login/facebook/callback"
-  },
-  "google": {
-    "callback": "http://127.0.0.1:3000/v1/login/google/callback"
-  },
-  "github": {
-    "id": "ac8ae679b222a349a098",
-    "secret": "490edafb3065549911577f5b9543747ebc601f96",
-    "callback": "http://127.0.0.1:3000/v1/login/github/callback"
   "auth0": {
     "secret": "",
     "audience": ""
