@@ -6,8 +6,6 @@
     "dsn": "mongodb://mongo:fvx0gzldnXhpvG3wJYI2Zf1I6wkLjo@ds119020.mlab.com:19020/passport_dev",
     "debug": false
   },
-  "auth": {
-    "secret": "super secret auth secret yo"
   },
   "twitter": {
     "key": "fIJifrCCHqmpPB452wE0fBs2u",
@@ -26,5 +24,8 @@
     "id": "ac8ae679b222a349a098",
     "secret": "490edafb3065549911577f5b9543747ebc601f96",
     "callback": "http://127.0.0.1:3000/v1/login/github/callback"
+  "auth0": {
+    "secret": "",
+    "audience": ""
   }
 }
