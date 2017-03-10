@@ -148,7 +148,7 @@ export class Server {
 
     // For all other GET requests, send back index.html so that PathLocationStrategy can be used.
     this.app.get('/*', function (req, res) {
-      res.sendFile(path.join(__dirname + '../public/index.html'));
+      res.sendFile(path.join(__dirname + '/../public/index.html'));
     });
   }
 }
