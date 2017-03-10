@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { BaseRoute } from "./route";
 import * as dbg from 'debug';
 const debug = dbg('gizmo-express:routes');
+import { debug } from '../util/debug';
 
 /**
  * / route

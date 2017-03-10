@@ -8,8 +8,7 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import errorHandler = require('errorhandler');
 
-import dbg = require('debug');
-const debug = dbg('gizmo-express:server');
+import { debug } from './util/debug';
 import { Connection } from 'mongoose';
 import mongoose = require('mongoose');
 import config = require('config');
