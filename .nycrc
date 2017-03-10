@@ -9,7 +9,8 @@
     "dist",
     "node_modules",
     "public",
-    "seed"
+    "seed",
+    "src/**/*.interface.ts"
   ],
   "extension": [
     ".ts"
