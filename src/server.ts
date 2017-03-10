@@ -27,7 +27,7 @@ const mongooseOptions = {
 };
 mongoose.Promise = Promise;
 const mongooseModels = path.join(__dirname, '/models');
-import { IndexRoute } from './routes/index';
+import { IndexRouter } from './routes/index';
 
 /**
  * The server.
@@ -106,8 +106,8 @@ export class Server {
     let router: express.Router;
     router = express.Router();
 
-    // IndexRoute.
-    IndexRoute.create(router);
+    // IndexRouter.
+    IndexRouter.create(router);
 
     // Use router middleware.
     this.app.use(router);

@@ -1,14 +1,12 @@
 import { NextFunction, Request, Response, Router } from 'express';
 
-import { BaseRoute } from './route';
+import { BaseRouter } from './route';
 import { debug } from '../util/debug';
 
 /**
- * / route
- *
- * @class User
+ * Index router.
  */
-export class IndexRoute extends BaseRoute {
+export class IndexRouter extends BaseRouter {
 
   /**
    * Create the routes.
@@ -18,26 +16,16 @@ export class IndexRoute extends BaseRoute {
    * @static
    */
   public static create (router: Router) {
-    debug('[IndexRoute::create] Creating index route.');
+    debug('[IndexRouter::create] Creating index routes.');
 
     //add home page route
     router.get('/', (req: Request, res: Response, next: NextFunction) => {
-      new IndexRoute().index(req, res, next);
+      new IndexRouter().index(req, res, next);
     });
   }
 
   /**
-   * Constructor
-   *
-   * @class IndexRoute
-   * @constructor
-   */
-  constructor () {
-    super();
-  }
-
-  /**
-   * The home page route.
+   * The atual index route.
    *
    * @class IndexRoute
    * @method index
@@ -46,15 +34,6 @@ export class IndexRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public index (req: Request, res: Response, next: NextFunction) {
-    //set custom title
-    this.title = 'Home | Tour of Heros';
 
-    //set message
-    let options: Object = {
-      'message': 'Welcome to the Tour of Heroes'
-    };
-
-    //render template
-    this.render(req, res, 'index', options);
   }
 }
