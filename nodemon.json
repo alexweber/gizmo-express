@@ -6,7 +6,7 @@
   "watch": [
     "bin/www",
     "config",
-    "dist"
+    "dist/**.js"
   ],
   "env": {
     "NODE_ENV": "development"
