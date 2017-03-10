@@ -13,8 +13,10 @@
     "rootDir": "./"
   },
   "exclude": [
+    ".nyc_output",
     "bin",
     "config",
+    "coverage",
     "dist",
     "node_modules",
     "public",
