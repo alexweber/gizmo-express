@@ -32,6 +32,6 @@ export class IndexRouter extends BaseRouter {
    * @next {NextFunction} Execute the next method.
    */
   public index (req: Request, res: Response, next: NextFunction) {
-    res.send('index route');
+    res.send('Welcome to the Gizmo Express API!');
   }
 }
