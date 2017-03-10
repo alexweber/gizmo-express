@@ -118,7 +118,7 @@ export class Server {
    */
   private database () {
     fs.readdirSync(mongooseModels)
-      .filter(file => ~file.search(/^[^\.].*\.js$/))
+      .filter(file => ~file.search(/^[^\.].*\.model.js$/))
       .forEach(file => require(path.join(mongooseModels, file)));
 
     // Debug mode.
