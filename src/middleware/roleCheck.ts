@@ -3,3 +3,5 @@
 const roleCheck = (name: string): boolean => {
   return false;
 };
+
+export default roleCheck;
