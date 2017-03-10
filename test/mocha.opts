@@ -1,0 +1,5 @@
+--no-colors
+--reporter spec
+--require test/bootstrap.ts
+--recursive
+--timeout 3000
