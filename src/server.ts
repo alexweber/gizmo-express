@@ -103,7 +103,7 @@ export class Server {
    * Create and init Router.
    */
   private routes () {
-    let router: express.Router = express.Router();
+    const router: express.Router = express.Router();
 
     // IndexRouter.
     new IndexRouter(router).init();
@@ -117,7 +117,7 @@ export class Server {
    */
   private database () {
     fs.readdirSync(mongooseModels)
-      .filter(file => ~file.search(/^[^\.].*\.model.js$/))
+      .filter(file => file.substr(-9) === '.model.js')
       .forEach(file => require(path.join(mongooseModels, file)));
 
     // Debug mode.
