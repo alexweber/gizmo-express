@@ -43,6 +43,7 @@
     "@types/morgan": "^1.7.32",
     "@types/node": "^7.0.8",
     "@types/sinon": "^1.16.35",
+    "@types/sinon-stub-promise": "^1.0.27",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "concurrently": "^3.4.0",
@@ -52,6 +53,7 @@
     "nyc": "^10.1.2",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
+    "sinon-stub-promise": "^4.0.0",
     "ts-node": "^2.1.0",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1"
