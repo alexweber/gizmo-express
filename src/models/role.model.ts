@@ -1,5 +1,20 @@
 import mongoose = require('mongoose');
 
-import Role from './role.schema';
+const Schema = mongoose.Schema;
+
+const Role = new Schema({
+  slug: {
+    type: String,
+    unique: true,
+    required: true,
+    index: true
+  },
+  name: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  description: String
+});
 
 export default mongoose.model('Role', Role);
