@@ -117,7 +117,7 @@ class Server {
    */
   private database () {
     fs.readdirSync(mongooseModels)
-      .filter(file => file.substr(-9) === '.model.js')
+      .filter(file => file.substr(-4) === '.js')
       .forEach(file => require(path.join(mongooseModels, file)));
 
     // Debug mode.

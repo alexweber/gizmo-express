@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import { expect } from 'chai';
 
-import Role from '../../src/models/role.model';
+import Role from '../../src/models/role';
 
 describe('models/Role', () => {
 
@@ -31,4 +31,8 @@ describe('models/Role', () => {
     });
   });
 
+  // @TODO
+  // it('should treat names as unique', function (done) {
+  //
+  // });
 });

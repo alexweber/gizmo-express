@@ -24,8 +24,7 @@ const User = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Role'
   }],
-  photo: String,
-  phone: String
+  photo: String
 });
 
 User.plugin(mongoosePaginate);
