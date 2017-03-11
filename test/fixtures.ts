@@ -5,4 +5,12 @@ const validRole = function () {
   };
 };
 
-export { validRole };
+const validUser = function () {
+  return {
+    id: 'test',
+    name: 'Test',
+    roles: []
+  };
+};
+
+export { validRole, validUser };
