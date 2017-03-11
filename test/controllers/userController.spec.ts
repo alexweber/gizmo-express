@@ -1,4 +1,4 @@
-import * as chai from 'chai';
+import chai = require('chai');
 import { expect } from 'chai';
 
 import UserController from '../../src/controllers/userController';

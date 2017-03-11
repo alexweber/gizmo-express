@@ -1,8 +1,8 @@
 // Bootstrap tests.
 
-import * as chai from 'chai';
+import chai = require('chai');
 
-// Enable Chai plugins.
+// Chai plugins.
 import chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 

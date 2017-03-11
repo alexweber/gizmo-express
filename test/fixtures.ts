@@ -5,4 +5,4 @@ const validRole = function () {
   };
 };
 
-export = { validRole };
+export { validRole };

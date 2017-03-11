@@ -1,5 +1,5 @@
-import * as chai from 'chai';
 import { expect } from 'chai';
+import chai = require('chai');
 
 import RoleController from '../../src/controllers/roleController';
 

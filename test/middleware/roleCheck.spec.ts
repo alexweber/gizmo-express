@@ -1,4 +1,4 @@
-import * as chai from 'chai';
+import chai = require('chai');
 import { expect } from 'chai';
 
 import roleCheck from '../../src/middleware/roleCheck';
