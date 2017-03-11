@@ -7,10 +7,9 @@ import * as logger from 'morgan';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import errorHandler = require('errorhandler');
-
 import { debug } from './util/debug';
-import { Connection } from 'mongoose';
 import mongoose = require('mongoose');
+import { Connection } from 'mongoose';
 import config = require('config');
 
 // Mongoose options.
@@ -27,7 +26,9 @@ const mongooseOptions = {
 };
 mongoose.Promise = Promise;
 const mongooseModels = path.join(__dirname, '/models');
+
 import { IndexRouter } from './routes/index';
+import { AdminRouter } from './routes/admin';
 
 /**
  * The server.
@@ -105,8 +106,9 @@ class Server {
   private routes () {
     const router: express.Router = express.Router();
 
-    // IndexRouter.
+    // Init route handlers.
     new IndexRouter(router).init();
+    new AdminRouter(router).init();
 
     // Use router middleware.
     this.app.use(router);
