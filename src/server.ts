@@ -20,8 +20,14 @@ import { AdminRouter } from './routes/admin';
  */
 class Server {
 
+  /**
+   * The Express application instance.
+   */
   public app: express.Application;
 
+  /**
+   * The Mongoose connection instance.
+   */
   public db: Connection;
 
   /**
