@@ -18,7 +18,7 @@ import { AdminRouter } from './routes/admin';
 /**
  * The server.
  */
-class Server {
+export class Server {
 
   /**
    * The Express application instance.
@@ -175,5 +175,3 @@ class Server {
     });
   }
 }
-
-export default new Server().app;

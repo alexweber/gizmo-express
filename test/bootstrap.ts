@@ -15,7 +15,8 @@ const sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(sinon);
 
 // Convenience.
-import app from '../src/server';
+import { Server } from '../src/server';
+const app = Server.bootstrap().app;
 export default app;
 
 // @TODO truncate db and re-seed?

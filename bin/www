@@ -2,7 +2,7 @@
 'use strict';
 
 //module dependencies
-const server = require('../dist/server');
+const server = require('../dist/src/server');
 const debug = require('debug')('gizmo-express:server');
 const http = require('http');
 
