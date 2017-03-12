@@ -109,16 +109,26 @@ class Server {
    * Init database.
    */
   private database () {
+    // Help avoiding topology destroyed errors.
+    const mongooseSocketOptions = {
+      keepAlive: 1,
+      connectTimeoutMS: 30000
+    };
+
     // Mongoose options.
     const mongooseOptions = {
       // Use native ES6 promises.
       promiseLibrary: Promise,
       // Use native parser.
       db: { native_parser: true },
+      server: {
+        socketOptions: mongooseSocketOptions
+      },
       replset: {
         auto_reconnect: true,
         // Use nearest replica set for reads.
         readPreference: 'ReadPreference.NEAREST',
+        socketOptions: mongooseSocketOptions
       }
     };
 
