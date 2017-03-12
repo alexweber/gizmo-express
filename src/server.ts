@@ -12,21 +12,6 @@ import mongoose = require('mongoose');
 import { Connection } from 'mongoose';
 import config = require('config');
 
-// Mongoose options.
-const mongooseOptions = {
-  // Use native ES6 promises.
-  promiseLibrary: Promise,
-  // Use native parser.
-  db: { native_parser: true },
-  // Use nearest replica set for reads.
-  replset: {
-    auto_reconnect: true,
-    readPreference: 'ReadPreference.NEAREST'
-  }
-};
-mongoose.Promise = Promise;
-const mongooseModels = path.join(__dirname, '/models');
-
 import { IndexRouter } from './routes/index';
 import { AdminRouter } from './routes/admin';
 
@@ -118,6 +103,25 @@ class Server {
    * Init database.
    */
   private database () {
+    // Mongoose options.
+    const mongooseOptions = {
+      // Use native ES6 promises.
+      promiseLibrary: Promise,
+      // Use native parser.
+      db: { native_parser: true },
+      replset: {
+        auto_reconnect: true,
+        // Use nearest replica set for reads.
+        readPreference: 'ReadPreference.NEAREST',
+      }
+    };
+
+    mongoose.Promise = Promise;
+
+    // Path to models.
+    const mongooseModels = path.join(__dirname, '/models');
+
+    // Init models recursively.
     fs.readdirSync(mongooseModels)
       .filter(file => file.substr(-4) === '.js')
       .forEach(file => require(path.join(mongooseModels, file)));
@@ -127,9 +131,10 @@ class Server {
       mongoose.set('debug', true);
     }
 
-    // Connect to mongo.
+    // Finally, connect to Mongo.
     mongoose.connect(<string>config.get('db.dsn'), mongooseOptions);
 
+    // Store connection for retrieval.
     this.db = mongoose.connection;
 
     this.db.on('error', err => {
@@ -137,7 +142,7 @@ class Server {
     });
 
     this.db.once('open', () => {
-      debug('Connected to MongoDB!');
+      debug('[db]: Connected to MongoDB!');
     });
   }
 
