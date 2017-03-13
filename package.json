@@ -14,7 +14,7 @@
     "build:dev": "tsc --watch",
     "start": "node ./bin/www",
     "start:dev": "nodemon --inspect ./bin/www",
-    "dev": "concurrently --kill-others \"yarn build:dev\" \"yarn start:dev\""
+    "dev": "yarn build && concurrently --kill-others \"yarn build:dev\" \"yarn start:dev\""
   },
   "dependencies": {
     "@types/sinon-chai": "^2.7.27",
