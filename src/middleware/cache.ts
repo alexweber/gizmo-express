@@ -2,7 +2,9 @@ import apicache = require('apicache');
 
 import { isProd } from '../util/environment';
 
-if (!isProd) {
+if (isProd()) {
+  apicache.options({ debug: false });
+} else {
   apicache.options({ debug: true });
 }
 

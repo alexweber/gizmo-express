@@ -14,5 +14,7 @@ describe('middleware/roleCheck', () => {
   });
 
   // @TODO actually test middleware stuff.
-
+  it('always returns false for now', function () {
+    expect(roleCheck('foo')).to.equal(false);
+  });
 });
