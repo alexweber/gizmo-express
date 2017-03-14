@@ -29,8 +29,8 @@ export default class RoleController extends CrudController {
 
   /** @inheritdoc */
   public update (id: Types.ObjectId, data: Object, lean: boolean = false): Promise<RoleInterface> {
-    return Role.update({ _id: id }, data, { 'new': true, safe: true }).then((res: RoleInterface) => {
-      return lean ? res.toObject() : res;
+    return Role.findOneAndUpdate({ _id: id }, data, { 'new': true }).lean(lean).then((res: RoleInterface) => {
+      return res as RoleInterface;
     });
   }
 

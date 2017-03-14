@@ -21,4 +21,7 @@ export function getServer () {
   return Server.bootstrap();
 }
 
+import mongoose = require('mongoose');
+mongoose.Promise = Promise;
+
 // @TODO bootsrap, truncate and re-seed db?

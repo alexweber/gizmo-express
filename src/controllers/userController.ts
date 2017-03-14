@@ -29,8 +29,8 @@ export default class UserController extends CrudController {
 
   /** @inheritdoc */
   public update (id: Types.ObjectId, data: Object, lean: boolean = false): Promise<UserInterface> {
-    return User.update({ _id: id }, data, { 'new': true, safe: true }).then((res: UserInterface) => {
-      return lean ? res.toObject() : res;
+    return User.findOneAndUpdate({ _id: id }, data, { 'new': true }).lean(lean).then((res: UserInterface) => {
+      return res as UserInterface;
     });
   }
 
