@@ -3,7 +3,7 @@ import sinon = require('sinon');
 
 const expect = chai.expect;
 
-import { validUser }  from '../fixtures';
+import validUser  from '../fixtures/validUser';
 import UserController from '../../src/controllers/userController';
 
 let controller;
