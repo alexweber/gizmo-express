@@ -1,6 +1,7 @@
 import chai = require('chai');
-import { expect } from 'chai';
 import config = require('config');
+
+const expect = chai.expect;
 
 import { isEnv, isDev, isStage, isProd, isTest } from '../../src/util/environment';
 
