@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "lint": "tslint \"src/**/*.ts\"",
-    "test": "NODE_ENV=test mocha --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
-    "test:dev": "NODE_ENV=test mocha --watch --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
+    "test": "ALLOW_CONFIG_MUTATIONS=1 NODE_ENV=test mocha --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
+    "test:dev": "ALLOW_CONFIG_MUTATIONS=1 NODE_ENV=test mocha --watch --reporter spec --compilers ts:ts-node/register test/**/*.spec.ts",
     "cover": "nyc npm test",
     "build": "tsc",
     "build:dev": "tsc --watch",
