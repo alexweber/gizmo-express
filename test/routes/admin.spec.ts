@@ -28,7 +28,7 @@ describe('routes/admin', () => {
     });
   });
 
-  describe('adminRouter', () => {
+  describe('AdminRouter', () => {
     let router;
     let spy;
 

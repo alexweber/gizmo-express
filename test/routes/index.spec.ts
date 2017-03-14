@@ -28,7 +28,7 @@ describe('routes/index', () => {
     });
   });
 
-  describe('indexRouter', () => {
+  describe('IndexRouter', () => {
     let router;
     let spy;
 
