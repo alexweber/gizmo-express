@@ -1,6 +1,11 @@
 import chai = require('chai');
 import sinon = require('sinon');
 
+// Mongoose mocking.
+import mongoose = require('mongoose');
+const Mockgoose = require('mockgoose').Mockgoose;
+const mockgoose = new Mockgoose(mongoose);
+
 const expect = chai.expect;
 
 import validRole from '../fixtures/validRole';
@@ -27,28 +32,40 @@ describe('controllers/roleController', function () {
     expect(controller).to.be.an('object');
   });
 
-  describe('load()', function () {
-    let promise;
-
-    beforeEach(function () {
-      promise = sinon.stub(controller, 'load').returnsPromise();
-    });
-
-    afterEach(function () {
-      controller.load.restore();
-    });
-
-    it('loads a single record', function () {
-      const a = validRole();
-      promise.resolves(a);
-      return controller.load({}).then(res => {
-        sinon.assert.calledWith(promise, {});
-        expect(res).to.equal(a);
+  describe('mongoose calls', function () {
+    before(done => {
+      mockgoose.prepareStorage().then(function () {
+        mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+          done(err);
+        });
       });
     });
-  });
 
-  describe('loadAll()', function () {
+    beforeEach(done => {
+      mockgoose.helper.reset().then(() => {
+        done()
+      });
+    });
 
+    describe('create()', function () {
+      it('inserts new records', function () {
+        const r = validRole();
+        return controller.create(r).then(role => {
+          expect(role).to.exist.and.be.an('object');
+          expect(role).to.have.property('__v');
+          expect(role).to.have.property('name');
+          expect(role).to.have.property('slug');
+          expect(role).to.have.property('_id');
+          expect(role.name).to.deep.equal(r.name);
+          expect(role.slug).to.deep.equal(r.slug);
+        });
+      });
+    });
+
+    describe('load()', function () {
+      it('loads saved records', function () {
+        return controller.load({})
+      });
+    });
   });
 });
