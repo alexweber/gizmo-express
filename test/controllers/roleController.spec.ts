@@ -8,7 +8,7 @@ import RoleController from '../../src/controllers/roleController';
 
 let controller;
 
-describe('controllers/roleController', () => {
+describe('controllers/roleController', function () {
 
   beforeEach(function () {
     controller = new RoleController();
@@ -24,10 +24,10 @@ describe('controllers/roleController', () => {
 
   it('should be instantiable', function () {
     expect(controller).to.exist;
-    expect(controller).to.be.a('object');
+    expect(controller).to.be.an('object');
   });
 
-  describe('load()', () => {
+  describe('load()', function () {
     let promise;
 
     beforeEach(function () {
@@ -46,5 +46,9 @@ describe('controllers/roleController', () => {
         expect(res).to.equal(a);
       });
     });
+  });
+
+  describe('loadAll()', function () {
+
   });
 });

@@ -7,7 +7,7 @@ import { getServer } from '../bootstrap';
 const server = getServer();
 const app = server.app;
 
-describe('routes/index', () => {
+describe('routes/index', function () {
   const url = '/v1';
 
   it('should exist', function () {
@@ -16,23 +16,23 @@ describe('routes/index', () => {
     });
   });
 
-  it('should serve html', () => {
+  it('should serve html', function () {
     return chai.request(app).get(url).then(res => {
       expect(res.type).to.equal('text/html');
     });
   });
 
-  it('should have a placeholder message', () => {
+  it('should have a placeholder message', function () {
     return chai.request(app).get(url).then(res => {
       expect(res['text']).to.equal('Welcome to the Gizmo Express API!');
     });
   });
 
-  describe('IndexRouter', () => {
+  describe('IndexRouter', function () {
     let router;
     let spy;
 
-    beforeEach(() => {
+    beforeEach(function () {
       router = server.getRouteHandler('index');
       spy = sinon.spy(router, 'index');
     });
@@ -41,8 +41,8 @@ describe('routes/index', () => {
       router.index.restore();
     });
 
-    it('should call the index() method', () => {
-      return chai.request(app).get(url).then(() => {
+    it('should call the index() method', function () {
+      return chai.request(app).get(url).then(function () {
         expect(spy.calledOnce).to.equal(true);
       });
     });

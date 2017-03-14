@@ -21,4 +21,4 @@ export function getServer () {
   return Server.bootstrap();
 }
 
-// @TODO truncate db and re-seed?
+// @TODO bootsrap, truncate and re-seed db?

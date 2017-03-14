@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 import authCheck from '../../src/middleware/authCheck';
 
-describe('middleware/authCheck', () => {
+describe('middleware/authCheck', function () {
 
   it('should exist', function () {
     expect(authCheck).to.exist;

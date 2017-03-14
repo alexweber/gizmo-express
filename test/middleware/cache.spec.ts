@@ -5,7 +5,7 @@ const expect = chai.expect;
 
 import cache from '../../src/middleware/cache';
 
-describe('middleware/cache', () => {
+describe('middleware/cache', function () {
 
   it('should exist', function () {
     expect(cache).to.exist;

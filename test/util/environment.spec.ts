@@ -13,13 +13,13 @@ const restoreEnvironment = () => {
   process.env.NODE_ENV = 'test';
 };
 
-describe('util/environment', () => {
+describe('util/environment', function () {
 
   beforeEach(() => {
     restoreEnvironment();
   });
 
-  describe('isEnv', () => {
+  describe('isEnv', function () {
     it('should exist', function () {
       expect(isEnv).to.exist;
     });
@@ -38,7 +38,7 @@ describe('util/environment', () => {
     });
   });
 
-  describe('isDev', () => {
+  describe('isDev', function () {
     it('should exist', function () {
       expect(isDev).to.exist;
     });
@@ -58,7 +58,7 @@ describe('util/environment', () => {
     });
   });
 
-  describe('isStage', () => {
+  describe('isStage', function () {
     it('should exist', function () {
       expect(isStage).to.exist;
     });
@@ -78,7 +78,7 @@ describe('util/environment', () => {
     });
   });
 
-  describe('isProd', () => {
+  describe('isProd', function () {
     it('should exist', function () {
       expect(isProd).to.exist;
     });
@@ -98,7 +98,7 @@ describe('util/environment', () => {
     });
   });
 
-  describe('isTest', () => {
+  describe('isTest', function () {
     it('should exist', function () {
       expect(isTest).to.exist;
     });

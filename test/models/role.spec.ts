@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 import Role from '../../src/models/role';
 
-describe('models/Role', () => {
+describe('models/Role', function () {
 
   it('should exist', function () {
     expect(Role).to.exist;

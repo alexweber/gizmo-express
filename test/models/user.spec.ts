@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 import User from '../../src/models/user';
 
-describe('models/User', () => {
+describe('models/User', function () {
 
   it('should exist', function () {
     expect(User).to.exist;

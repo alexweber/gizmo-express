@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 import { debug } from '../../src/util/debug';
 
-describe('util/debug', () => {
+describe('util/debug', function () {
 
   it('should exist', function () {
     expect(debug).to.exist;

@@ -8,7 +8,7 @@ import UserController from '../../src/controllers/userController';
 
 let controller;
 
-describe('controllers/userController', () => {
+describe('controllers/userController', function () {
 
   beforeEach(function () {
     controller = new UserController();
@@ -24,10 +24,10 @@ describe('controllers/userController', () => {
 
   it('should be instantiable', function () {
     expect(controller).to.exist;
-    expect(controller).to.be.a('object');
+    expect(controller).to.be.an('object');
   });
 
-  describe('load()', () => {
+  describe('load()', function () {
     let promise;
 
     beforeEach(function () {

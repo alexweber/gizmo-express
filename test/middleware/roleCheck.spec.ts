@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 import roleCheck from '../../src/middleware/roleCheck';
 
-describe('middleware/roleCheck', () => {
+describe('middleware/roleCheck', function () {
 
   it('should exist', function () {
     expect(roleCheck).to.exist;
