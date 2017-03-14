@@ -1,18 +1,14 @@
 import chai = require('chai');
 import sinon = require('sinon');
 
-import express = require('express');
-const Router = express.Router();
-
 const expect = chai.expect;
 
-import app from '../bootstrap';
-import { AdminRouter } from '../../src/routes/admin';
-
-let route;
+import { getServer } from '../bootstrap';
+const server = getServer();
+const app = server.app;
 
 describe('routes/admin', () => {
-  const url = '/';
+  const url = '/v1/admin';
 
   it('should exist', function () {
     return chai.request(app).get(url).then(res => {
@@ -28,25 +24,26 @@ describe('routes/admin', () => {
 
   it('should have a placeholder message', () => {
     return chai.request(app).get(url).then(res => {
-      expect(res['text']).to.equal('Hello from admin.html\n');
+      expect(res['text']).to.equal('Welcome to the Gizmo Express Admin API!');
     });
   });
 
   describe('adminRouter', () => {
-    let stub;
+    let router;
+    let spy;
 
     beforeEach(() => {
-      route = new AdminRouter(Router);
-      stub = sinon.stub(route, 'index');
+      router = server.getRouteHandler('admin');
+      spy = sinon.spy(router, 'index');
     });
 
     afterEach(function () {
-      route.index.restore();
+      router.index.restore();
     });
 
     it('should call the index() method', () => {
       return chai.request(app).get(url).then(() => {
-        sinon.assert.called(stub);
+        expect(spy.calledOnce).to.equal(true);
       });
     });
   });

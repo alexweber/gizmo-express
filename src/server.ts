@@ -14,6 +14,7 @@ import config = require('config');
 
 import { IndexRouter } from './routes/index';
 import { AdminRouter } from './routes/admin';
+import { BaseRouter } from './routes/route';
 
 /**
  * The server.
@@ -29,6 +30,11 @@ export class Server {
    * The Mongoose connection instance.
    */
   public db: Connection;
+
+  /**
+   * Initialized route handlers.
+   */
+  private routeHandlers: { [prop: string]: BaseRouter } = {};
 
   /**
    * Bootstrap the application.
@@ -75,7 +81,7 @@ export class Server {
       extended: true
     }));
 
-    // @TODO validator.
+    // @TODO validator/sanitizer.
 
     // Use compression.
     this.app.use(compression());
@@ -97,9 +103,14 @@ export class Server {
   private routes () {
     const router: express.Router = express.Router();
 
+    // Add route handlers.
+    this.routeHandlers['index'] = new IndexRouter(router);
+    this.routeHandlers['admin'] = new AdminRouter(router);
+
     // Init route handlers.
-    new IndexRouter(router).init();
-    new AdminRouter(router).init();
+    Object.keys(this.routeHandlers).forEach(key => {
+      this.routeHandlers[key].init();
+    });
 
     // Use router middleware.
     this.app.use(router);
@@ -148,17 +159,17 @@ export class Server {
     }
 
     // Finally, connect to Mongo.
-    mongoose.connect(<string>config.get('db.dsn'), mongooseOptions);
+    mongoose.createConnection(<string>config.get('db.dsn'), mongooseOptions);
 
     // Store connection for retrieval.
     this.db = mongoose.connection;
 
     this.db.on('error', err => {
-      debug(`[db]: ${err}`);
+      debug(`[db] ${err}`);
     });
 
     this.db.once('open', () => {
-      debug('[db]: Connected to MongoDB!');
+      debug('[db] Connected to MongoDB!');
     });
   }
 
@@ -167,11 +178,21 @@ export class Server {
    */
   private client () {
     // Serve client app statically.
-    this.app.use(express.static(path.join(__dirname, '../public')));
+    this.app.use(express.static(path.join(__dirname, '../../public')));
 
     // For all other GET requests, send back index.html so that PathLocationStrategy can be used.
     this.app.get('/*', function (req, res) {
-      res.sendFile(path.join(__dirname + '/../public/index.html'));
+      res.sendFile(path.join(__dirname + '/../../public/index.html'));
     });
+  }
+
+  /**
+   * Returns the registered route handler for a given name or false if it doesn't exist.
+   *
+   * @param name {String}
+   * @returns {BaseRouter|boolean}
+   */
+  public getRouteHandler (name: string): BaseRouter|false {
+    return this.routeHandlers.hasOwnProperty(name) ? this.routeHandlers[name] : false;
   }
 }

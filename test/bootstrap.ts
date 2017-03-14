@@ -16,7 +16,9 @@ sinonStubPromise(sinon);
 
 // Convenience.
 import { Server } from '../src/server';
-const app = Server.bootstrap().app;
-export default app;
+
+export function getServer () {
+  return Server.bootstrap();
+}
 
 // @TODO truncate db and re-seed?
