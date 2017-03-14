@@ -35,7 +35,7 @@ describe('controllers/userController', function () {
   describe('mongoose calls', function () {
     before(done => {
       mockgoose.prepareStorage().then(function () {
-        mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+        mongoose.createConnection('mongodb://example.com/TestingDB', function (err) {
           done(err);
         });
       });
