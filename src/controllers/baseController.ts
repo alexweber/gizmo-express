@@ -11,7 +11,7 @@ export abstract class BaseController {
    *
    * @return {Promise<Document|Object>}>
    */
-  public abstract load (id: Types.ObjectId, lean: boolean): Promise<Document|Object>;
+  public abstract load (id: Types.ObjectId, lean?: boolean): Promise<Document|Object>;
 
   /**
    * Loads all documents.
@@ -20,5 +20,5 @@ export abstract class BaseController {
    *
    * @return {Promise<(Document|Object)[]>}>
    */
-  public abstract loadAll (lean: boolean): Promise<(Document|Object)[]>;
+  public abstract loadAll (lean?: boolean): Promise<(Document|Object)[]>;
 }

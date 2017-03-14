@@ -1,5 +1,5 @@
 import mongoose = require('mongoose');
-import { Query, Types } from 'mongoose';
+import { Document, Query, Types } from 'mongoose';
 
 import { BaseController } from './baseController';
 
@@ -11,9 +11,20 @@ export abstract class CrudController extends BaseController {
    * @param data {Object}
    * @param lean {boolean} Whether to return a plain object instead of a full Mongoose Document.
    *
-   * @return {Promise<Object>} The saved document, converted to a plain object.
+   * @return {Promise<Document|Object>} The saved document.
    */
-  public abstract create (data: Object, lean: boolean): Promise<Object>;
+  public abstract create (data: Object, lean?: boolean): Promise<Document|Object>;
+
+  /**
+   * Updates a document.
+   *
+   * @param id {Types.ObjectId} Mongoose _id.
+   * @param data {Object}
+   * @param lean {boolean} Whether to return a plain object instead of a full Mongoose Document.
+   *
+   * @return {Promise<Document|Object>} The saved document.
+   */
+  public abstract update (id: Types.ObjectId, data: Object, lean?: boolean): Promise<Document|Object>;
 
   /**
    * Removes a document.
@@ -25,13 +36,14 @@ export abstract class CrudController extends BaseController {
   public abstract remove (id: Types.ObjectId): Query<void>;
 
   /**
-   * Saves a document.
+   * Convenience method to create or save a document.
    *
    * @param conditions {Object}
    * @param data {Object}
-   * @param [upsert] {boolean} Whether to upsert or just save.
+   * @param [upsert] {boolean} Whether to upsert.
+   * @param lean {boolean} Whether to return a plain object instead of a full Mongoose Document.
    *
-   * @return {Promise<Object>} The saved document, converted to a plain object.
+   * @return {Promise<Document|Object>} The saved document.
    */
-  public abstract save (conditions: Object, data: Object, upsert?: boolean): Promise<Object>;
+  public abstract save (conditions: Object, data: Object, upsert?: boolean, lean?: boolean): Promise<Document|Object>;
 }

@@ -28,13 +28,26 @@ export default class RoleController extends CrudController {
   }
 
   /** @inheritdoc */
+  public update (id: Types.ObjectId, data: Object, lean: boolean = false): Promise<RoleInterface> {
+    return Role.update({ _id: id }, data, { 'new': true, safe: true }).then((res: RoleInterface) => {
+      return lean ? res.toObject() : res;
+    });
+  }
+
+  /** @inheritdoc */
   public remove (id: Types.ObjectId): Query<void> {
     return Role.remove({ _id: id });
   }
 
   /** @inheritdoc */
-  public save (conditions: Object, data: Object, upsert: boolean = false): Promise<RoleInterface> {
-    return Role.findOneAndUpdate(conditions, data, { 'new': true, upsert: true }).lean(true).then(res => {
+  public save (
+    conditions: Object, data: Object, upsert: boolean = false, lean: boolean = false
+  ): Promise<RoleInterface> {
+    return Role.findOneAndUpdate(conditions, data, {
+      'new': true,
+      upsert,
+      setDefaultsOnInsert: true
+    }).lean(lean).then(res => {
       return res as RoleInterface;
     });
   }
