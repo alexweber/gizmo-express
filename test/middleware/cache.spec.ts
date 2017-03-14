@@ -4,6 +4,7 @@ import apicache = require('apicache');
 const expect = chai.expect;
 
 import cache from '../../src/middleware/cache';
+import { onlyStatus200s } from '../../src/middleware/cache';
 
 describe('middleware/cache', function () {
 
@@ -27,6 +28,16 @@ describe('middleware/cache', function () {
     const options = apicache.options();
     expect(options.debug).to.equal(false);
     process.env.NODE_ENV = 'test';
+  });
+
+  it('only caches successfull requests', function () {
+    expect(onlyStatus200s({ statusCode: 199 })).to.deep.equal(false);
+    expect(onlyStatus200s({ statusCode: 200 })).to.deep.equal(true);
+    expect(onlyStatus200s({ statusCode: 201 })).to.deep.equal(true);
+    expect(onlyStatus200s({ statusCode: 250 })).to.deep.equal(true);
+    expect(onlyStatus200s({ statusCode: 299 })).to.deep.equal(true);
+    expect(onlyStatus200s({ statusCode: 300 })).to.deep.equal(false);
+    expect(onlyStatus200s({ statusCode: 400 })).to.deep.equal(false);
   });
 
   // @TODO actually test middleware stuff.

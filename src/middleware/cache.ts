@@ -21,3 +21,6 @@ const cache = period => {
 };
 
 export default cache;
+
+// For testing.
+export { onlyStatus200s };
