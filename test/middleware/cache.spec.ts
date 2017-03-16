@@ -1,4 +1,5 @@
 import chai = require('chai');
+import sinon = require('sinon');
 import apicache = require('apicache');
 
 const expect = chai.expect;
@@ -40,8 +41,16 @@ describe('middleware/cache', function () {
     expect(onlyStatus200s({ statusCode: 400 })).to.deep.equal(false);
   });
 
-  // @TODO actually test middleware stuff.
-
+  // it('calls apicache middleware with the correct parameters', function () {
+  //   const testObj = { middleware: apicache.middleware };
+  //   const spy = sinon.spy(testObj, 'middleware');
+  //   const args = '1 month';
+  //   cache(args);
+  //   console.log(spy);
+  //   expect(spy.called).to.equal(true);
+  //   // expect(spy.calledWith(args)).to.equal(true);
+  //   spy.restore();
+  // });
 });
 
 /**
