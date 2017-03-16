@@ -188,6 +188,7 @@ export class Server {
 
   /**
    * Returns the registered route handler for a given name or false if it doesn't exist.
+   * This is used for testing purposes only.
    *
    * @param name {String}
    * @returns {BaseRouter|boolean}
