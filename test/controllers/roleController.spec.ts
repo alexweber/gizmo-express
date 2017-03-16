@@ -1,5 +1,4 @@
 import chai = require('chai');
-import sinon = require('sinon');
 
 // Mongoose mocking.
 import mongoose = require('mongoose');
