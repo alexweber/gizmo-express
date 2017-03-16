@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 
-import { BaseRouter } from './route';
+import { BaseRouter } from './base';
 import { debug } from '../util/debug';
 
 /**

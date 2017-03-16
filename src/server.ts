@@ -14,7 +14,7 @@ import config = require('config');
 
 import { IndexRouter } from './routes/index';
 import { AdminRouter } from './routes/admin';
-import { BaseRouter } from './routes/route';
+import { BaseRouter } from './routes/base';
 
 /**
  * The server.

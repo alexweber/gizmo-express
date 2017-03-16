@@ -1,4 +1,4 @@
-import { BaseRouter } from '../../src/routes/route';
+import { BaseRouter } from '../../src/routes/base';
 
 export class DummyRouter extends BaseRouter {
   init () {

@@ -17,4 +17,9 @@ export abstract class BaseRouter {
 
   // Must be implemented to initialize routes.
   public abstract init ();
+
+  public errorHandler (err) {
+    // @TODO generic way to handle errrors.
+    console.error(err);
+  }
 }
