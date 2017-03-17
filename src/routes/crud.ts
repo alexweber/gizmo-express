@@ -12,6 +12,7 @@ export abstract class CrudRouter extends BaseRouter {
    * @param controller {ICrudController} The controller to use.
    */
   createCrud (name: string, controller: ICrudController) {
+
     // Load all items.
     this.router.get(`${this.prefix}/${name}`, (req: Request, res: Response, next: NextFunction) => {
       controller.loadAll().then(items => {

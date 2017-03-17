@@ -148,10 +148,9 @@ describe('controllers/userController', function () {
     });
 
     describe('remove()', function () {
-      it('returns a mongoose query', function () {
+      it('returns an empty promise', function () {
         return controller.remove().then(res => {
-          expect(res).to.have.property('result');
-          expect(res).to.have.property('connection');
+          expect(res).to.equal(null);
         });
       });
 

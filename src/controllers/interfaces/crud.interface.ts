@@ -31,9 +31,9 @@ export interface ICrudController extends IController {
    *
    * @param id {Types.ObjectId} Mongoose _id.
    *
-   * @return {Promise<boolean>} Whether the deletion was successfull.
+   * @return {Promise<void>} A promise that will complete if the deletion was successfull.
    */
-  remove (id: Types.ObjectId): Query<void>;
+  remove (id: Types.ObjectId): Promise<void>;
 
   /**
    * Convenience method to create or save a document.

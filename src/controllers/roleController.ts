@@ -38,8 +38,10 @@ export default class RoleController extends SearchController implements ICrudCon
   }
 
   /** @inheritdoc */
-  public remove (id: Types.ObjectId): Query<void> {
-    return Role.remove({ _id: id });
+  public remove (id: Types.ObjectId): Promise<void> {
+    return Role.remove({ _id: id }).then(() => {
+      return null;
+    });
   }
 
   /** @inheritdoc */

@@ -44,8 +44,10 @@ export default class UserController extends PagedSearchController implements ICr
   }
 
   /** @inheritdoc */
-  public remove (id: Types.ObjectId): Query<void> {
-    return User.remove({ _id: id });
+  public remove (id: Types.ObjectId): Promise<void> {
+    return User.remove({ _id: id }).then(() => {
+      return null;
+    });
   }
 
   /** @inheritdoc */

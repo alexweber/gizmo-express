@@ -26,6 +26,8 @@ export class Server {
    */
   public app: express.Application;
 
+  public router: express.Router;
+
   /**
    * The Mongoose connection instance.
    */
@@ -115,6 +117,8 @@ export class Server {
       this.routeHandlers[key].init();
     });
 
+    this.router = router;
+
     // Use router middleware.
     this.app.use(router);
   }
@@ -123,6 +127,11 @@ export class Server {
    * Init database.
    */
   private database () {
+    // Debug mode.
+    if (config.has('db.debug') && config.get('db.debug')) {
+      mongoose.set('debug', true);
+    }
+
     // Help avoiding topology destroyed errors.
     const mongooseSocketOptions = {
       keepAlive: 1,
@@ -132,7 +141,7 @@ export class Server {
     // Mongoose options.
     const mongooseOptions = {
       // Use native ES6 promises.
-      promiseLibrary: Promise,
+      promiseLibrary: global.Promise,
       // Use native parser.
       db: { native_parser: true },
       server: {
@@ -156,24 +165,20 @@ export class Server {
       .filter(file => file.substr(-4) === '.js')
       .forEach(file => require(path.join(mongooseModels, file)));
 
-    // Debug mode.
-    if (config.has('db.debug') && config.get('db.debug')) {
-      mongoose.set('debug', true);
+    // Finally, connect to Mongo and Store connection.
+    if (this.app.get('env') !== 'test') {
+      mongoose.connect(<string>config.get('db.dsn'), mongooseOptions);
+
+      this.db = mongoose.connection;
+
+      this.db.on('error', err => {
+        debug(`[db] ${err}`);
+      });
+
+      this.db.once('open', () => {
+        debug('[db] Connected to MongoDB!');
+      });
     }
-
-    // Finally, connect to Mongo.
-    mongoose.createConnection(<string>config.get('db.dsn'), mongooseOptions);
-
-    // Store connection for retrieval.
-    this.db = mongoose.connection;
-
-    this.db.on('error', err => {
-      debug(`[db] ${err}`);
-    });
-
-    this.db.once('open', () => {
-      debug('[db] Connected to MongoDB!');
-    });
   }
 
   /**

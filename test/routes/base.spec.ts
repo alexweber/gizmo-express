@@ -4,7 +4,7 @@ import express = require('express');
 const Router = express.Router();
 
 const expect = chai.expect;
-import { DummyRouter } from '../fixtures/dummyRouter';
+import { DummyRouter } from '../fixtures/dummyRouters';
 
 describe('BaseRouter', function () {
 
