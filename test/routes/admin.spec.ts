@@ -28,23 +28,5 @@ describe('routes/admin', () => {
     });
   });
 
-  describe('AdminRouter', () => {
-    let router;
-    let spy;
-
-    beforeEach(() => {
-      router = server.getRouteHandler('admin');
-      spy = sinon.spy(router, 'index');
-    });
-
-    afterEach(function () {
-      router.index.restore();
-    });
-
-    it('should call the index() method', () => {
-      return chai.request(app).get(url).then(() => {
-        expect(spy.calledOnce).to.equal(true);
-      });
-    });
-  });
+  // @TODO test crud routes generated.
 });
