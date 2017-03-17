@@ -358,9 +358,41 @@ describe('controllers/roleController', function () {
         };
         return controller.find(params).then(() => {
           expect(spy.calledOnce).to.equal(true);
+          expect(spy.calledWith(params.filters, RoleController.projection)).to.equal(true);
+        });
+      });
+    });
 
-          const options = controller.getPaginationOptions(params);
-          expect(spy.calledWith(params.filters, options)).to.equal(true);
+    describe('find() continued', function () {
+      let stub, sortSpy, limitSpy, dummyFind;
+
+      beforeEach(() => {
+        dummyFind = Role.find({});
+        sortSpy = sinon.spy(dummyFind, 'sort');
+        limitSpy = sinon.spy(dummyFind, 'limit');
+        stub = sinon.stub(Role, 'find');
+        stub.onCall(0).returns(dummyFind);
+      });
+
+      afterEach(() => {
+        dummyFind.sort.restore();
+        dummyFind.limit.restore();
+        stub.restore();
+      });
+
+      it('sets the sort parameter', function () {
+        const params = { sort: {} };
+        return controller.find(params).then(() => {
+          expect(sortSpy.calledOnce).to.equal(true);
+          expect(sortSpy.calledWith(params.sort)).to.equal(true);
+        });
+      });
+
+      it('sets the limit parameter', function () {
+        const params = { limit: 10 };
+        return controller.find(params).then(() => {
+          expect(limitSpy.calledOnce).to.equal(true);
+          expect(limitSpy.calledWith(params.limit)).to.equal(true);
         });
       });
     });
