@@ -11,7 +11,7 @@ export default class RoleController extends SearchController implements ICrudCon
 
   /** @inheritdoc */
   public load (id: Types.ObjectId, lean: boolean = false): Promise<IRole> {
-    return Role.findOne({ _id: id }, '-__v').lean(lean).then(res => {
+    return Role.findOne({ _id: id }, RoleController.projection).lean(lean).then(res => {
       return res as IRole;
     });
   }
@@ -57,7 +57,7 @@ export default class RoleController extends SearchController implements ICrudCon
 
   /** @inheritdoc */
   public find (params: ISearchParams, lean?: boolean): Promise<IRole[]> {
-    let query = Role.find(params.filters, '-__v');
+    let query = Role.find(params.filters, RoleController.projection);
 
     if (params.sort) {
       query.sort(params.sort);
