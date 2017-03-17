@@ -1,4 +1,5 @@
 import chai = require('chai');
+import sinon = require('sinon');
 
 // Mongoose mocking.
 import mongoose = require('mongoose');
@@ -7,6 +8,7 @@ const mockgoose = new Mockgoose(mongoose);
 
 const expect = chai.expect;
 
+import Role from '../../src/models/role';
 import validRoles from '../fixtures/validRoles';
 import RoleController from '../../src/controllers/roleController';
 
@@ -29,6 +31,10 @@ describe('controllers/roleController', function () {
   it('should be instantiable', function () {
     expect(controller).to.exist;
     expect(controller).to.be.an('object');
+  });
+
+  it('should project values', function () {
+    expect(RoleController.projection).to.equal('-__v');
   });
 
   describe('mongoose calls', function () {
@@ -64,6 +70,20 @@ describe('controllers/roleController', function () {
           expect(role.name).to.deep.equal(r.name);
           expect(role.slug).to.deep.equal(r.slug);
           expect(role.__v).to.deep.equal(0);
+        });
+      });
+
+      it('when inserting, returns a full-fledged mongoose document by default', function () {
+        const r = validRoles()[0];
+        return controller.create(r).then(user => {
+          expect(user).to.respondTo('save');
+        });
+      });
+
+      it('when inserting, returns a plain object if specified', function () {
+        const r = validRoles()[0];
+        return controller.create(r, true).then(user => {
+          expect(user).to.not.respondTo('save');
         });
       });
     });
@@ -307,6 +327,40 @@ describe('controllers/roleController', function () {
               expect(res).to.not.respondTo('save');
             });
           });
+        });
+      });
+    });
+
+    describe('find()', function () {
+      let spy;
+
+      beforeEach(function () {
+        spy = sinon.spy(Role, 'find');
+      });
+
+      afterEach(function () {
+        Role.find['restore']();
+      });
+
+      it('returns an empty array when no records match', function () {
+        return controller.find({}).then(res => {
+          expect(res).to.be.an('array');
+          expect(res.length).to.equal(0);
+        });
+      });
+
+      it('calls Model.find() with the expected parameters', function () {
+        const params = {
+          filters: {
+            email: 'alex@test.com'
+          },
+          select: RoleController.projection
+        };
+        return controller.find(params).then(() => {
+          expect(spy.calledOnce).to.equal(true);
+
+          const options = controller.getPaginationOptions(params);
+          expect(spy.calledWith(params.filters, options)).to.equal(true);
         });
       });
     });
