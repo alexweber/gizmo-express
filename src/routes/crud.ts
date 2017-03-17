@@ -3,6 +3,7 @@ import { PaginateOptions } from 'mongoose';
 
 import { BaseRouter } from './base';
 import { CrudController } from '../controllers/crudController';
+import { SearchParams } from './searchParamsInterface';
 
 export abstract class CrudRouter extends BaseRouter {
 
@@ -51,6 +52,32 @@ export abstract class CrudRouter extends BaseRouter {
         res.sendStatus(200);
       }).catch(this.errorHandler);
     });
+  }
+
+  /**
+   * Helper to return formatted search parameters.
+   *
+   * @param req {Request} The express Request object.
+   *
+   * @returns {SearchParams}
+   */
+  getSearchParams (req: Request): SearchParams {
+    const page = Number(req.query.page);
+    const limit = Number(req.query.limit);
+    const filters = req.body || {};
+    // @TODO sanitize
+    // const page = Number(sanitizer.sanitize(req.query.page));
+    // const limit = Number(sanitizer.sanitize(req.query.limit));
+    // const filters = req.body ? sanitizeObject(req.body) : {};
+    const sortField = req.query.sort ? req.query.sort : null;
+    let sort = null;
+
+    if (sortField) {
+      sort = {};
+      sort[sortField] = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
+    }
+
+    return { page, limit, filters, sort };
   }
 
   /**
