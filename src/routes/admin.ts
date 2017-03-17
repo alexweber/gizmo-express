@@ -20,7 +20,7 @@ export class AdminRouter extends CrudRouter {
   }
 
   /**
-   * Create the index routes.
+   * Create the admin routes.
    */
   public init () {
     debug('[AdminRouter::create] Creating admin routes.');
@@ -30,10 +30,10 @@ export class AdminRouter extends CrudRouter {
       res.send('Welcome to the Gizmo Express Admin API!');
     });
 
-    // Roles.
+    // Role Crud.
     this.createCrud('roles', this.roleController);
 
-    // Users.
+    // User Crud.
     this.createCrud('users', this.userController);
   }
 }
