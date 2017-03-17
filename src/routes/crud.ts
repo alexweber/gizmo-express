@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { PaginateOptions } from 'mongoose';
 
 import { BaseRouter } from './base';
-import { CrudControllerInterface } from '../controllers/interfaces/crud.interface';
-import { SearchParams } from './searchParamsInterface';
+import { ICrudController } from '../controllers/interfaces/crud.interface';
+import { ISearchParams } from './interfaces/searchParams.interface';
 
 export abstract class CrudRouter extends BaseRouter {
 
@@ -11,9 +11,9 @@ export abstract class CrudRouter extends BaseRouter {
    * Generate CRUD routes.
    *
    * @param name {string} The name to use as a path prefix.
-   * @param controller {CrudControllerInterface} The controller to use.
+   * @param controller {ICrudController} The controller to use.
    */
-  createCrud (name: string, controller: CrudControllerInterface) {
+  createCrud (name: string, controller: ICrudController) {
     // Load all items.
     this.router.get(`${this.prefix}/${name}`, (req: Request, res: Response, next: NextFunction) => {
       controller.loadAll().then(items => {
@@ -59,9 +59,9 @@ export abstract class CrudRouter extends BaseRouter {
    *
    * @param req {Request} The express Request object.
    *
-   * @returns {SearchParams}
+   * @returns {ISearchParams}
    */
-  getSearchParams (req: Request): SearchParams {
+  getSearchParams (req: Request): ISearchParams {
     const page = Number(req.query.page);
     const limit = Number(req.query.limit);
     const filters = req.body || {};

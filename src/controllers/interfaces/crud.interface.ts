@@ -1,9 +1,9 @@
 import mongoose = require('mongoose');
 import { Document, Query, Types } from 'mongoose';
 
-import { Controller } from './controller.interface';
+import { IController } from './controller.interface';
 
-export interface CrudController extends Controller {
+export interface ICrudController extends IController {
 
   /**
    * Creates a document.

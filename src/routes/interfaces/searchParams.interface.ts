@@ -1,4 +1,4 @@
-export interface SearchParams {
+export interface ISearchParams {
   page?: number;
   limit?: number;
   filters: Object;

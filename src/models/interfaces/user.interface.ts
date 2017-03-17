@@ -1,6 +1,6 @@
 import mongoose = require('mongoose');
 
-export interface UserInterface extends mongoose.Document {
+export interface IUserInterface extends mongoose.Document {
   id: string;
   name: string;
   created: Date;

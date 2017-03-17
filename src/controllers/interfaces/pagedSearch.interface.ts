@@ -1,15 +1,15 @@
-import { Controller } from './controller.interface';
-import { SearchParams } from '../../routes/searchParamsInterface';
+import { IController } from './controller.interface';
+import { ISearchParams } from '../../routes/interfaces/searchParams.interface';
 
-export interface PagedSearchController extends Controller {
+export interface IPagedSearchController extends IController {
 
   /**
    * Finds documents paged.
    *
-   * @param params {SearchParams}
+   * @param params {ISearchParams}
    * @param lean {boolean} Whether to return plain objects instead of full Mongoose Documents.
    *
    * @return {Promise<(Document|Object)[]>} The found documents, if any.
    */
-  findPaged (params: SearchParams, lean?: boolean): Promise<(Document|Object)[]>;
+  findPaged (params: ISearchParams, lean?: boolean): Promise<(Document|Object)[]>;
 }

@@ -1,7 +1,7 @@
 import mongoose = require('mongoose');
 import { Document, Types }  from 'mongoose';
 
-export interface Controller {
+export interface IController {
 
   /**
    * Loads a document by id.

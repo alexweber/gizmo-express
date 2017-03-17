@@ -1,36 +1,36 @@
 import { Query, Types } from 'mongoose';
 
-import { CrudController }  from './interfaces/crud.interface';
-import { UserInterface } from '../models/user.interface';
+import { ICrudController }  from './interfaces/crud.interface';
+import { IUserInterface } from '../models/interfaces/user.interface';
 import User from '../models/user';
 
-export default class UserController implements CrudController {
+export default class UserController implements ICrudController {
 
   /** @inheritdoc */
-  public load (id: Types.ObjectId, lean: boolean = false): Promise<UserInterface> {
+  public load (id: Types.ObjectId, lean: boolean = false): Promise<IUserInterface> {
     return User.findOne({ _id: id }, '-__v').lean(lean).then(res => {
-      return res as UserInterface;
+      return res as IUserInterface;
     });
   }
 
   /** @inheritdoc */
-  public loadAll (lean: boolean = false): Promise<UserInterface[]> {
+  public loadAll (lean: boolean = false): Promise<IUserInterface[]> {
     return User.find({}, '-__v').sort({ created: 'desc' }).lean(lean).then(res => {
-      return res as UserInterface[];
+      return res as IUserInterface[];
     });
   }
 
   /** @inheritdoc */
-  public create (data: Object, lean: boolean = false): Promise<UserInterface> {
-    return User.create(data).then((res: UserInterface) => {
+  public create (data: Object, lean: boolean = false): Promise<IUserInterface> {
+    return User.create(data).then((res: IUserInterface) => {
       return lean ? res.toObject() : res;
     });
   }
 
   /** @inheritdoc */
-  public update (id: Types.ObjectId, data: Object, lean: boolean = false): Promise<UserInterface> {
-    return User.findOneAndUpdate({ _id: id }, data, { 'new': true }).lean(lean).then((res: UserInterface) => {
-      return res as UserInterface;
+  public update (id: Types.ObjectId, data: Object, lean: boolean = false): Promise<IUserInterface> {
+    return User.findOneAndUpdate({ _id: id }, data, { 'new': true }).lean(lean).then((res: IUserInterface) => {
+      return res as IUserInterface;
     });
   }
 
@@ -42,13 +42,13 @@ export default class UserController implements CrudController {
   /** @inheritdoc */
   public save (
     conditions: Object, data: Object, upsert: boolean = false, lean: boolean = false
-  ): Promise<UserInterface> {
+  ): Promise<IUserInterface> {
     return User.findOneAndUpdate(conditions, data, {
       'new': true,
       upsert,
       setDefaultsOnInsert: true
     }).lean(lean).then(res => {
-      return res as UserInterface;
+      return res as IUserInterface;
     });
   }
 }
