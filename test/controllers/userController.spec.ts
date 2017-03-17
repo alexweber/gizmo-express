@@ -353,13 +353,7 @@ describe('controllers/userController', function () {
         });
       });
 
-      it('calls Model.paginate()', function () {
-        return controller.findPaged({}).then(() => {
-          expect(paginationSpy.calledOnce).to.equal(true);
-        });
-      });
-
-      it('calls Model.paginate() with the correct arguments', function () {
+      it('calls Model.paginate() with the expected parameters', function () {
         const params = {
           filters: {
             email: 'alex@test.com'
@@ -367,7 +361,7 @@ describe('controllers/userController', function () {
           select: UserController.projection
         };
         return controller.findPaged(params).then(() => {
-          expect(paginationSpy.called).to.equal(true);
+          expect(paginationSpy.calledOnce).to.equal(true);
 
           const options = controller.getPaginationOptions(params);
           expect(paginationSpy.calledWith(params.filters, options)).to.equal(true);
