@@ -8,13 +8,6 @@ import User from '../models/user';
 
 export default class UserController extends PagedSearchController implements ICrudController {
 
-  /**
-   * The default projection for queries.
-   *
-   * @type {string}
-   */
-  static projection = '-__v';
-
   /** @inheritdoc */
   public load (id: Types.ObjectId, lean: boolean = false): Promise<IUser> {
     return User.findOne({ _id: id }, UserController.projection).lean(lean).then(res => {

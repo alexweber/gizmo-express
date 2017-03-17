@@ -6,6 +6,13 @@ import stripAccents from '../util/stripAccents';
 export abstract class SearchController {
 
   /**
+   * The default projection for queries.
+   *
+   * @type {string}
+   */
+  static projection = '-__v';
+
+  /**
    * Helper to return formatted search parameters.
    *
    * @param req {Request} The express Request object.
