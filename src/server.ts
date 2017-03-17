@@ -93,8 +93,11 @@ export class Server {
     });
 
     // Error handling.
-    // @TODO check if dev & import conditionally
-    this.app.use(errorHandler());
+    if (this.app.get('env') !== 'production') {
+      this.app.use(errorHandler());
+    } else {
+      // @TODO prod error handling.
+    }
   }
 
   /**
