@@ -1,9 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { PaginateOptions } from 'mongoose';
 
 import { BaseRouter } from './base';
 import { ICrudController } from '../controllers/interfaces/crud.interface';
-import { ISearchParams } from './interfaces/searchParams.interface';
 
 export abstract class CrudRouter extends BaseRouter {
 
@@ -52,97 +50,5 @@ export abstract class CrudRouter extends BaseRouter {
         res.sendStatus(200);
       }).catch(this.errorHandler);
     });
-  }
-
-  /**
-   * Helper to return formatted search parameters.
-   *
-   * @param req {Request} The express Request object.
-   *
-   * @returns {ISearchParams}
-   */
-  getSearchParams (req: Request): ISearchParams {
-    const page = Number(req.query.page);
-    const limit = Number(req.query.limit);
-    const filters = req.body || {};
-    // @TODO sanitize
-    // const page = Number(sanitizer.sanitize(req.query.page));
-    // const limit = Number(sanitizer.sanitize(req.query.limit));
-    // const filters = req.body ? sanitizeObject(req.body) : {};
-    const sortField = req.query.sort ? req.query.sort : null;
-    let sort = null;
-
-    if (sortField) {
-      sort = {};
-      sort[sortField] = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
-    }
-
-    return { page, limit, filters, sort };
-  }
-
-  /**
-   * Helper to build mongoose pagination options.
-   *
-   * @param page {number} The current page
-   * @param limit {number} How many items per page
-   * @param sort {Object|string} Query sorts.
-   * @param select {Object|string} Query projection.
-   * @param populate {Object} References to populate.
-   *
-   * @returns {PaginateOptions}
-   */
-  getPaginationOptions (
-    page: number, limit: number, sort: Object|string, select: Object|string, populate: Object
-  ): PaginateOptions {
-    let populateOptions = [];
-    let sortTemp = Object.assign({}, sort);
-
-    if (populate) {
-      let populatedSorts = {};
-
-      Object.keys(sort).forEach(key => {
-        // If we're sorting on a key that's populated, break it up.
-        if (key.indexOf('.') !== -1) {
-          const temp = key.split('.');
-          populatedSorts[temp[0]] = {};
-          populatedSorts[temp[0]][temp[1]] = sort[key];
-          delete sortTemp[key];
-        }
-      });
-
-      Object.keys(populate).forEach(key => {
-        let params: any = {
-          path: key,
-          select: populate[key]
-        };
-
-        if (sort && populatedSorts.hasOwnProperty(key)) {
-          params.options = { sort: populatedSorts[key] };
-        }
-
-        populateOptions.push(params);
-      });
-    }
-
-    let options: PaginateOptions = {
-      lean: true,
-      leanWithId: false,
-      limit,
-      offset: (page - 1) * limit
-    };
-
-    if (select) {
-      options.select = select;
-    }
-
-    if (sort) {
-      options.sort = sort;
-    }
-
-    if (populate) {
-      options.populate = populate;
-    }
-
-    return options;
   }
 }
