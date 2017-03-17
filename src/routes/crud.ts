@@ -6,6 +6,12 @@ import { CrudController } from '../controllers/crudController';
 
 export abstract class CrudRouter extends BaseRouter {
 
+  /**
+   * Generate CRUD routes.
+   *
+   * @param name {string} The name to use as a path prefix.
+   * @param controller {CrudController} The controller to use.
+   */
   createCrud (name: string, controller: CrudController) {
     // Load all items.
     this.router.get(`${this.prefix}/${name}`, (req: Request, res: Response, next: NextFunction) => {
@@ -47,8 +53,6 @@ export abstract class CrudRouter extends BaseRouter {
     });
   }
 
-  // @TODO searching and filtering.
-
   /**
    * Helper to build mongoose pagination options.
    *
@@ -57,6 +61,7 @@ export abstract class CrudRouter extends BaseRouter {
    * @param sort {Object|string} Query sorts.
    * @param select {Object|string} Query projection.
    * @param populate {Object} References to populate.
+   *
    * @returns {PaginateOptions}
    */
   getPaginationOptions (
@@ -69,6 +74,7 @@ export abstract class CrudRouter extends BaseRouter {
       let populatedSorts = {};
 
       Object.keys(sort).forEach(key => {
+        // If we're sorting on a key that's populated, break it up.
         if (key.indexOf('.') !== -1) {
           const temp = key.split('.');
           populatedSorts[temp[0]] = {};
