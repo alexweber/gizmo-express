@@ -3,10 +3,11 @@ import { Query, Types } from 'mongoose';
 import { ICrudController }  from './interfaces/crud.interface';
 import Role from '../models/role';
 import { IRole } from '../models/interfaces/role.interface';
-import { ISearchController } from './interfaces/search.interface';
+import { ISimpleSearchController } from './interfaces/simpleSearch.interface';
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';
+import { SearchController } from './searchController';
 
-export default class RoleController implements ICrudController, ISearchController {
+export default class RoleController extends SearchController implements ICrudController, ISimpleSearchController {
 
   /** @inheritdoc */
   public load (id: Types.ObjectId, lean: boolean = false): Promise<IRole> {

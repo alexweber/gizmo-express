@@ -1,9 +1,9 @@
-import { Request } from 'express';
 import { Document, PaginateOptions, PaginateResult } from 'mongoose';
 
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';
+import { SearchController } from './searchController';
 
-export abstract class PagedSearchController {
+export abstract class PagedSearchController extends SearchController {
 
   /**
    * Finds documents paged.
@@ -14,48 +14,6 @@ export abstract class PagedSearchController {
    * @return {Promise<PaginateResult<Document>>} The paged search result.
    */
   public abstract findPaged (params: ISearchParams, lean?: boolean): Promise<PaginateResult<Document>>;
-
-  /**
-   * Helper to return formatted search parameters.
-   *
-   * @param req {Request} The express Request object.
-   *
-   * @returns {ISearchParams}
-   */
-  getSearchParams (req: Request): ISearchParams {
-    const page = Number(req.query.page);
-    const limit = Number(req.query.limit);
-    const filters = req.body || {};
-    // @TODO sanitize
-    // const page = Number(sanitizer.sanitize(req.query.page));
-    // const limit = Number(sanitizer.sanitize(req.query.limit));
-    // const filters = req.body ? sanitizeObject(req.body) : {};
-    const sortField = req.query.sort ? req.query.sort : null;
-    let sort = null;
-
-    if (sortField) {
-      sort = {};
-      sort[sortField] = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
-    }
-
-    return { page, limit, filters, sort };
-  }
-
-  /**
-   * Helper to remove null filters which may have come in from a form submission.
-   */
-  stripNullFilters (params: ISearchParams): ISearchParams {
-    let processedParams = Object.assign({}, params);
-
-    // Remove null filters.
-    Object.keys(processedParams.filters).forEach(key => {
-      if (processedParams.filters[key] === null || processedParams.filters[key] === undefined) {
-        delete processedParams.filters[key];
-      }
-    });
-
-    return processedParams;
-  }
 
   /**
    * Helper to build mongoose pagination options.

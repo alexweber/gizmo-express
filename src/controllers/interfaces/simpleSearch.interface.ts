@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 import { IController } from './controller.interface';
 import { ISearchParams } from '../../routes/interfaces/searchParams.interface';
 
-export interface ISearchController extends IController {
+export interface ISimpleSearchController extends IController {
 
   /**
    * Finds documents.
