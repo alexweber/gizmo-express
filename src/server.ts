@@ -56,10 +56,10 @@ export class Server {
     // Init database.
     this.database();
 
-    // Add API routes.
+    // Init routes.
     this.routes();
 
-    /// Init client app.
+    // Init client app.
     this.client();
   }
 
