@@ -60,6 +60,10 @@ export abstract class SearchController {
    * Helper to remove null filters which may have come in from a form submission.
    */
   stripNullFilters (params: ISearchParams): ISearchParams {
+    if (!params['filters']) {
+      return params;
+    }
+
     let processedParams = Object.assign({}, params);
 
     // Remove null filters.
