@@ -43,7 +43,7 @@ export abstract class SearchController {
    */
   addSearchFilter (params: ISearchParams, fields: string[]): ISearchParams {
     let processedParams = Object.assign({}, params);
-    const strippedTerm = stripAccents(params.filters['search']).trim();
+    const strippedTerm = stripAccents(processedParams.filters['search']).trim();
 
     if (fields.length > 1) {
       processedParams.filters['$or'] = [];

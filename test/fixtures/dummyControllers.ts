@@ -1,7 +1,9 @@
-import { Document, Types } from 'mongoose';
+import { Document, Types, PaginateResult } from 'mongoose';
 
 import { ICrudController } from '../../src/controllers/interfaces/crud.interface';
-import { Query } from 'mongoose';
+import { SearchController } from '../../src/controllers/searchController';
+import { PagedSearchController } from '../../src/controllers/pagedSearchController';
+import { ISearchParams } from '../../src/routes/interfaces/searchParams.interface';
 
 export class DummyController implements ICrudController {
 
@@ -27,5 +29,17 @@ export class DummyController implements ICrudController {
 
   save (conditions: Object, data: Object, upsert?: boolean, lean?: boolean): Promise<Document|Object> {
     return Promise.resolve(data);
+  }
+}
+
+export class DummySearchController extends SearchController {}
+
+export class DummyPagedSearchController extends PagedSearchController {
+  findPaged (params: ISearchParams, lean?: boolean): Promise<PaginateResult<Document>> {
+    return Promise.resolve({
+      docs: [],
+      total: 0,
+      limit: 10
+    });
   }
 }
