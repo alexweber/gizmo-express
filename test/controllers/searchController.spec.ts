@@ -12,6 +12,10 @@ describe('controllers/searchController', function () {
     controller = new DummySearchController();
   });
 
+  it('should project values', function () {
+    expect(DummySearchController.projection).to.equal('-__v');
+  });
+
   describe('stripNullFilters()', function () {
     it('strips null filters', function () {
       const params = {
@@ -38,8 +42,9 @@ describe('controllers/searchController', function () {
   });
 
   describe('addSearchFilter()', function () {
-    let searchParams, dummyResult
+    let searchParams, dummyComplexResult, dummySimpleResult;
     const fields = ['foo', 'bar'];
+    const field = ['foo'];
 
     beforeEach(() => {
       searchParams = {
@@ -47,7 +52,7 @@ describe('controllers/searchController', function () {
           search: 'searchString'
         }
       };
-      dummyResult = [
+      dummyComplexResult = [
         {
           foo: {
             $regex: searchParams.filters.search,
@@ -61,13 +66,20 @@ describe('controllers/searchController', function () {
           }
         }
       ];
+      dummySimpleResult = {};
+      dummySimpleResult[field[0]] = searchParams.filters.search;
     });
 
-    it('adds search filters', function () {
+    it('adds complex search filters', function () {
       const result = controller.addSearchFilter(searchParams, fields);
       expect(result.filters).to.have.property('$or');
       expect(result.filters.$or).to.be.an('array');
-      expect(result.filters.$or).to.deep.equal(dummyResult);
+      expect(result.filters.$or).to.deep.equal(dummyComplexResult);
+    });
+
+    it('adds simple search filters', function () {
+      const result = controller.addSearchFilter(searchParams, field);
+      expect(result.filters).to.deep.equal(dummySimpleResult);
     });
 
     it('cleans up the search filter param', function () {
@@ -78,5 +90,57 @@ describe('controllers/searchController', function () {
     // it('strips accents', function () {
     // @TODO
     // });
+  });
+
+  describe('getSearchParams()', function () {
+    let request;
+    const sortParamAsc = {
+      name: 'asc'
+    };
+    const sortParamDesc = {
+      name: 'desc'
+    };
+
+    beforeEach(() => {
+      request = {
+        body: { name: 'test' },
+        query: {
+          page: 0,
+          limit: 10,
+          sort: 'name',
+          dir: 'asc'
+        }
+      };
+    });
+
+    it('converts a request into an ISearchParam object', function () {
+      const params = controller.getSearchParams(request);
+      expect(params).to.be.an('object');
+      expect(params).to.have.property('page');
+      expect(params.page).to.equal(request.query.page);
+      expect(params).to.have.property('limit');
+      expect(params.limit).to.equal(request.query.limit);
+      expect(params).to.have.property('sort');
+      expect(params.sort).to.deep.equal(sortParamAsc);
+      expect(params).to.have.property('filters');
+      expect(params.filters).to.deep.equal(request.body);
+    });
+
+    it('falls back to descending order', function () {
+      delete request.query.dir;
+      const params = controller.getSearchParams(request);
+      expect(params).to.be.an('object');
+      expect(params).to.have.property('sort');
+      expect(params.sort).to.deep.equal(sortParamDesc);
+    });
+
+    it('works fine with no sorts', function () {
+      delete request.query.dir;
+      delete request.query.sort;
+      const params = controller.getSearchParams(request);
+      expect(params).to.be.an('object');
+      expect(params).to.have.property('sort');
+      expect(params.sort).to.be.empty;
+    });
   });
 });
