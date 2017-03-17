@@ -1,4 +1,5 @@
 import chai = require('chai');
+import sinon = require('sinon');
 
 // Mongoose mocking.
 import mongoose = require('mongoose');
@@ -7,6 +8,7 @@ const mockgoose = new Mockgoose(mongoose);
 
 const expect = chai.expect;
 
+import User from '../../src/models/user';
 import validUsers from '../fixtures/validUsers';
 import UserController from '../../src/controllers/userController';
 
@@ -29,6 +31,10 @@ describe('controllers/userController', function () {
   it('should be instantiable', function () {
     expect(controller).to.exist;
     expect(controller).to.be.an('object');
+  });
+
+  it('should project values', function () {
+    expect(UserController.projection).to.equal('-__v');
   });
 
   describe('mongoose calls', function () {
@@ -64,6 +70,20 @@ describe('controllers/userController', function () {
           expect(user.name).to.deep.equal(r.name);
           expect(user.id).to.deep.equal(r.id);
           expect(user.__v).to.deep.equal(0);
+        });
+      });
+
+      it('when inserting, returns a full-fledged mongoose document by default', function () {
+        const r = validUsers()[0];
+        return controller.create(r).then(user => {
+          expect(user).to.respondTo('save');
+        });
+      });
+
+      it('when inserting, returns a plain object if specified', function () {
+        const r = validUsers()[0];
+        return controller.create(r, true).then(user => {
+          expect(user).to.not.respondTo('save');
         });
       });
     });
@@ -307,6 +327,74 @@ describe('controllers/userController', function () {
               expect(res).to.not.respondTo('save');
             });
           });
+        });
+      });
+    });
+
+    describe('findPaged()', function () {
+      let paginationSpy, nullSpy, optionSpy, filterSpy;
+
+      beforeEach(function () {
+        paginationSpy = sinon.spy(User, 'paginate');
+        nullSpy = sinon.spy(controller, 'stripNullFilters');
+        optionSpy = sinon.spy(controller, 'getPaginationOptions');
+        filterSpy = sinon.spy(controller, 'addSearchFilter');
+      });
+
+      afterEach(function () {
+        User.paginate['restore']();
+        controller.stripNullFilters.restore();
+        controller.getPaginationOptions.restore();
+      });
+
+      it('returns empty pagination results when no records match', function () {
+        return controller.findPaged({}).then(res => {
+          expect(res.total).to.equal(0);
+        });
+      });
+
+      it('calls Model.paginate()', function () {
+        return controller.findPaged({}).then(() => {
+          expect(paginationSpy.calledOnce).to.equal(true);
+        });
+      });
+
+      it('calls Model.paginate() with the correct arguments', function () {
+        const params = {
+          filters: {
+            email: 'alex@test.com'
+          },
+          select: UserController.projection
+        };
+        return controller.findPaged(params).then(() => {
+          expect(paginationSpy.called).to.equal(true);
+
+          const options = controller.getPaginationOptions(params);
+          expect(paginationSpy.calledWith(params.filters, options)).to.equal(true);
+        });
+      });
+
+      it('strips null filters', function () {
+        return controller.findPaged({}).then(() => {
+          expect(nullSpy.calledOnce).to.equal(true);
+        });
+      });
+
+      it('gets pagination options', function () {
+        return controller.findPaged({}).then(() => {
+          expect(optionSpy.calledOnce).to.equal(true);
+        });
+      });
+
+      it('processes search filters', function () {
+        const params = {
+          filters: {
+            search: 'alex@test.com'
+          },
+          select: UserController.projection
+        };
+        return controller.findPaged(params).then(() => {
+          expect(filterSpy.calledOnce).to.equal(true);
         });
       });
     });
