@@ -1,7 +1,7 @@
 import mongoose = require('mongoose');
 import { Document, Types }  from 'mongoose';
 
-export abstract class BaseController {
+export interface Controller {
 
   /**
    * Loads a document by id.
@@ -11,7 +11,7 @@ export abstract class BaseController {
    *
    * @return {Promise<Document|Object>}>
    */
-  public abstract load (id: Types.ObjectId, lean?: boolean): Promise<Document|Object>;
+  load (id: Types.ObjectId, lean?: boolean): Promise<Document|Object>;
 
   /**
    * Loads all documents.
@@ -20,5 +20,5 @@ export abstract class BaseController {
    *
    * @return {Promise<(Document|Object)[]>}>
    */
-  public abstract loadAll (lean?: boolean): Promise<(Document|Object)[]>;
+  loadAll (lean?: boolean): Promise<(Document|Object)[]>;
 }

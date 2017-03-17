@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { PaginateOptions } from 'mongoose';
 
 import { BaseRouter } from './base';
-import { CrudController } from '../controllers/crudController';
+import { CrudControllerInterface } from '../controllers/interfaces/crud.interface';
 import { SearchParams } from './searchParamsInterface';
 
 export abstract class CrudRouter extends BaseRouter {
@@ -11,9 +11,9 @@ export abstract class CrudRouter extends BaseRouter {
    * Generate CRUD routes.
    *
    * @param name {string} The name to use as a path prefix.
-   * @param controller {CrudController} The controller to use.
+   * @param controller {CrudControllerInterface} The controller to use.
    */
-  createCrud (name: string, controller: CrudController) {
+  createCrud (name: string, controller: CrudControllerInterface) {
     // Load all items.
     this.router.get(`${this.prefix}/${name}`, (req: Request, res: Response, next: NextFunction) => {
       controller.loadAll().then(items => {

@@ -1,10 +1,10 @@
 import { Query, Types } from 'mongoose';
 
-import { CrudController }  from './crudController';
+import { CrudController }  from './interfaces/crud.interface';
 import { UserInterface } from '../models/user.interface';
 import User from '../models/user';
 
-export default class UserController extends CrudController {
+export default class UserController implements CrudController {
 
   /** @inheritdoc */
   public load (id: Types.ObjectId, lean: boolean = false): Promise<UserInterface> {

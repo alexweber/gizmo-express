@@ -1,9 +1,9 @@
 import mongoose = require('mongoose');
 import { Document, Query, Types } from 'mongoose';
 
-import { BaseController } from './baseController';
+import { Controller } from './controller.interface';
 
-export abstract class CrudController extends BaseController {
+export interface CrudController extends Controller {
 
   /**
    * Creates a document.
@@ -13,7 +13,7 @@ export abstract class CrudController extends BaseController {
    *
    * @return {Promise<Document|Object>} The saved document.
    */
-  public abstract create (data: Object, lean?: boolean): Promise<Document|Object>;
+  create (data: Object, lean?: boolean): Promise<Document|Object>;
 
   /**
    * Updates a document.
@@ -24,7 +24,7 @@ export abstract class CrudController extends BaseController {
    *
    * @return {Promise<Document|Object>} The saved document.
    */
-  public abstract update (id: Types.ObjectId, data: Object, lean?: boolean): Promise<Document|Object>;
+  update (id: Types.ObjectId, data: Object, lean?: boolean): Promise<Document|Object>;
 
   /**
    * Removes a document.
@@ -33,7 +33,7 @@ export abstract class CrudController extends BaseController {
    *
    * @return {Promise<boolean>} Whether the deletion was successfull.
    */
-  public abstract remove (id: Types.ObjectId): Query<void>;
+  remove (id: Types.ObjectId): Query<void>;
 
   /**
    * Convenience method to create or save a document.
@@ -45,5 +45,5 @@ export abstract class CrudController extends BaseController {
    *
    * @return {Promise<Document|Object>} The saved document.
    */
-  public abstract save (conditions: Object, data: Object, upsert?: boolean, lean?: boolean): Promise<Document|Object>;
+  save (conditions: Object, data: Object, upsert?: boolean, lean?: boolean): Promise<Document|Object>;
 }

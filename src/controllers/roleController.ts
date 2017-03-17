@@ -1,10 +1,12 @@
 import { Query, Types } from 'mongoose';
 
-import { CrudController }  from './crudController';
+import { CrudController }  from './interfaces/crud.interface';
 import Role from '../models/role';
 import { RoleInterface } from '../models/role.interface';
+import { SearchController } from './interfaces/search.interface';
+import { SearchParams } from '../routes/searchParamsInterface';
 
-export default class RoleController extends CrudController {
+export default class RoleController implements CrudController, SearchController {
 
   /** @inheritdoc */
   public load (id: Types.ObjectId, lean: boolean = false): Promise<RoleInterface> {
@@ -40,15 +42,33 @@ export default class RoleController extends CrudController {
   }
 
   /** @inheritdoc */
-  public save (
-    conditions: Object, data: Object, upsert: boolean = false, lean: boolean = false
-  ): Promise<RoleInterface> {
+  public save (conditions: Object, data: Object, upsert: boolean = false, lean: boolean = false): Promise<RoleInterface> {
     return Role.findOneAndUpdate(conditions, data, {
       'new': true,
       upsert,
       setDefaultsOnInsert: true
     }).lean(lean).then(res => {
       return res as RoleInterface;
+    });
+  }
+
+  /** @inheritdoc */
+  public find (params: SearchParams, lean?: boolean): Promise<RoleInterface[]> {
+    let query = Role.find(params.filters, '-__v');
+
+    if (params.sort) {
+      query.sort(params.sort);
+    }
+
+    if (params.limit) {
+      query.limit(params.limit);
+    }
+
+    // Intentionally ignore params.page as we have a PagedSearch interface for that.
+    // This is specifically a "simple" find.
+
+    return query.lean(lean).then(results => {
+      return results as RoleInterface[];
     });
   }
 }
