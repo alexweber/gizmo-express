@@ -28,10 +28,9 @@ export abstract class SearchController {
     // const limit = Number(sanitizer.sanitize(req.query.limit));
     // const filters = req.body ? sanitizeObject(req.body) : {};
     const sortField = req.query.sort ? req.query.sort : null;
-    let sort = null;
+    let sort = {};
 
     if (sortField) {
-      sort = {};
       sort[sortField] = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
     }
 
