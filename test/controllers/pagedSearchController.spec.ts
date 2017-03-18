@@ -52,7 +52,7 @@ describe('controllers/pagedSearchController', function () {
       const options = controller.getPaginationOptions(params);
       expect(options).to.be.an('object');
       expect(options).to.have.property('populate');
-      expect(options.populate).to.deep.equal(params.populate);
+      expect(options.populate).to.deep.equal([{ path: 'foo', select: 'bar' }]);
     });
 
     it('sets select option', function () {
@@ -63,7 +63,7 @@ describe('controllers/pagedSearchController', function () {
       expect(options.select).to.deep.equal(params.select);
     });
 
-    it("doesm't use leanWithId", function () {
+    it("doesn't use leanWithId", function () {
       const options = controller.getPaginationOptions(params);
       expect(options).to.be.an('object');
       expect(options).to.have.property('leanWithId');
@@ -107,29 +107,30 @@ describe('controllers/pagedSearchController', function () {
       expect(options.offset).to.equal(params.limit * params.page);
     });
 
-    // it('falls back to descending order', function () {
-    //   delete request.query.dir;
-    //   const params = controller.getSearchParams(request);
-    //   expect(params).to.be.an('object');
-    //   expect(params).to.have.property('sort');
-    //   expect(params.sort).to.deep.equal(sortParamDesc);
-    // });
-    //
-    // it('works fine with no sorts', function () {
-    //   delete request.query.dir;
-    //   delete request.query.sort;
-    //   const params = controller.getSearchParams(request);
-    //   expect(params).to.be.an('object');
-    //   expect(params).to.have.property('sort');
-    //   expect(params.sort).to.be.empty;
-    // });
-    //
-    // it('works fine with no body', function () {
-    //   delete request.body;
-    //   const params = controller.getSearchParams(request);
-    //   expect(params).to.be.an('object');
-    //   expect(params).to.have.property('filters');
-    //   expect(params.filters).to.be.empty;
-    // });
+    it('handles sorting on populated fields', function () {
+      params.sort = {};
+      params.sort['userId.name'] = 'asc';
+      params.populate = { userId: 'name' };
+      const populateResult = {
+        path: 'userId',
+        select: 'name',
+        options: {
+          sort: {
+            name: 'asc'
+          }
+        }
+      };
+      const options = controller.getPaginationOptions(params);
+      expect(options.sort).to.deep.equal({});
+      expect(options.populate).to.deep.equal([populateResult]);
+    });
+
+    it('ignores populated sorting on non-populated fields', function () {
+      params.sort = {};
+      params.sort['userId.name'] = 'asc';
+      const options = controller.getPaginationOptions(params);
+      expect(options).to.not.have.property('populate');
+      expect(options.sort).to.deep.equal(params.sort);
+    });
   });
 });
