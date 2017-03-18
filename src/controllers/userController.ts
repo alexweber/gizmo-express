@@ -55,7 +55,7 @@ export default class UserController extends PagedSearchController implements ICr
   }
 
   /** @inheritdoc */
-  public findPaged (params: ISearchParams, lean?: boolean): Promise<PaginateResult<IUser>> {
+  public findPaged (params: ISearchParams): Promise<PaginateResult<IUser>> {
     let processedParams = Object.assign({}, params);
     processedParams.select = UserController.projection;
     // processedParams.populate = UserController.populate;
@@ -65,7 +65,7 @@ export default class UserController extends PagedSearchController implements ICr
     }
 
     processedParams = this.stripNullFilters(processedParams);
-    const options = this.getPaginationOptions(processedParams, lean);
+    const options = this.getPaginationOptions(processedParams);
     return User.paginate(processedParams.filters, options);
   }
 }

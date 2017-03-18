@@ -13,7 +13,7 @@ export abstract class SearchController {
   static projection = '-__v';
 
   /**
-   * Helper to return formatted search parameters.
+   * Helper to return formatted search parameters from a request.
    *
    * @param req {Request} The express Request object.
    *
@@ -34,7 +34,7 @@ export abstract class SearchController {
       sort[sortField] = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
     }
 
-    return { page, limit, filters, sort };
+    return { page, limit, filters, sort, lean: true };
   }
 
   /**

@@ -10,9 +10,8 @@ export interface ISimpleSearchController extends IController {
    * Finds documents.
    *
    * @param params {ISearchParams}
-   * @param lean {boolean} Whether to return plain objects instead of full Mongoose Documents.
    *
    * @return {Promise<(Document|Object)[]>} The found documents, if any.
    */
-  find (params: ISearchParams, lean?: boolean): Promise<(Document|Object)[]>;
+  find (params: ISearchParams): Promise<(Document|Object)[]>;
 }

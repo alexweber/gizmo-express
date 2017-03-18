@@ -56,7 +56,7 @@ export default class RoleController extends SearchController implements ICrudCon
   }
 
   /** @inheritdoc */
-  public find (params: ISearchParams, lean?: boolean): Promise<IRole[]> {
+  public find (params: ISearchParams): Promise<IRole[]> {
     let query = Role.find(params.filters, RoleController.projection);
 
     if (params.sort) {
@@ -67,10 +67,14 @@ export default class RoleController extends SearchController implements ICrudCon
       query.limit(params.limit);
     }
 
-    // Intentionally ignore params.page as we have a PagedSearch interface for that.
-    // This is specifically a "simple" find.
+    if (params.lean) {
+      query.lean(params.lean);
+    }
 
-    return query.lean(lean).then(results => {
+    // Intentionally ignore params.page as we have a PagedSearch interface for that.
+    // This is specifically a simple search.
+
+    return query.then(results => {
       return results as IRole[];
     });
   }

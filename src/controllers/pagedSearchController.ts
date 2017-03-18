@@ -9,16 +9,15 @@ export abstract class PagedSearchController extends SearchController {
    * Finds documents paged.
    *
    * @param params {ISearchParams}
-   * @param lean {boolean} Whether to return plain objects instead of full Mongoose Documents.
    *
    * @return {Promise<PaginateResult<Document>>} The paged search result.
    */
-  public abstract findPaged (params: ISearchParams, lean?: boolean): Promise<PaginateResult<Document>>;
+  public abstract findPaged (params: ISearchParams): Promise<PaginateResult<Document>>;
 
   /**
    * Helper to build mongoose pagination options.
    */
-  getPaginationOptions (params: ISearchParams, lean: boolean = true): PaginateOptions {
+  getPaginationOptions (params: ISearchParams): PaginateOptions {
     let populateOptions = [];
     let sortTemp = params.sort ? Object.assign({}, params.sort) : {};
 
@@ -52,7 +51,7 @@ export abstract class PagedSearchController extends SearchController {
     }
 
     let options: PaginateOptions = {
-      lean,
+      lean: params.lean || true,
       leanWithId: false,
       limit: params.limit,
       offset: params.page * params.limit,
