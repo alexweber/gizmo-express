@@ -1,4 +1,5 @@
 import chai = require('chai');
+import sinon = require('sinon');
 import config = require('config');
 import express = require('express');
 const Router = express.Router();
@@ -7,15 +8,19 @@ const expect = chai.expect;
 import { DummyRouter } from '../fixtures/dummyRouters';
 
 describe('BaseRouter', function () {
-
-  let oldVersion;
+  let oldVersion, errSpy;
 
   before(() => {
     oldVersion = config.get('api.version');
   });
 
+  beforeEach(() => {
+    errSpy = sinon.spy(console, 'error');
+  });
+
   afterEach(() => {
     config['api']['version'] = oldVersion;
+    console.error['restore']();
   });
 
   it('base router sets prefix with api version', function () {
@@ -52,5 +57,10 @@ describe('BaseRouter', function () {
     expect(router).to.respondTo('errorHandler');
   });
 
-  // @TODO test actual error handling
+  it('logs errors to the console for now', function () {
+    let router = new DummyRouter(Router);
+    const err = new Error('foo error');
+    router.errorHandler(err);
+    expect(errSpy.calledWithExactly(err)).to.equal(true);
+  });
 });
