@@ -2,6 +2,10 @@
   "api": {
     "version": 1
   },
+  "cache": {
+    "debug": true,
+    "redis": false
+  },
   "db": {
     "dsn": "mongodb://mongo:fvx0gzldnXhpvG3wJYI2Zf1I6wkLjo@ds119020.mlab.com:19020/passport_dev",
     "debug": false
