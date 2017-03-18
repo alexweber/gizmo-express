@@ -352,7 +352,7 @@ describe('controllers/roleController', function () {
       it('calls Model.find() with the expected parameters', function () {
         const params = {
           filters: {
-            email: 'alex@test.com'
+            slug: 'foo'
           },
           select: RoleController.projection
         };
@@ -393,6 +393,78 @@ describe('controllers/roleController', function () {
         return controller.find(params).then(() => {
           expect(limitSpy.calledOnce).to.equal(true);
           expect(limitSpy.calledWith(params.limit)).to.equal(true);
+        });
+      });
+    });
+
+    describe('find() full test with mocked db', function () {
+      before(done => {
+        mongoose.disconnect();
+        mockgoose.prepareStorage().then(function () {
+          mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+            done(err);
+          });
+        });
+      });
+
+      after(done => {
+        mongoose.disconnect(function (err) {
+          done(err);
+        });
+      });
+
+      beforeEach(done => {
+        mockgoose.helper.reset().then(() => {
+          done()
+        });
+      });
+
+      it('returns the expected results', function () {
+        const params = {
+          filters: {
+            slug: 'foo'
+          },
+          select: RoleController.projection
+        };
+
+        // Inser fake records first.
+        const r = validRoles();
+        return Role.create(r).then(() => {
+          return controller.find(params).then(res => {
+            expect(res.length).to.equal(1);
+          });
+        });
+      });
+
+      it('returns the expected results 2', function () {
+        const params = {
+          filters: {
+            slug: 'bar'
+          },
+          select: RoleController.projection
+        };
+
+        // Inser fake records first.
+        const r = validRoles();
+        return Role.create(r).then(() => {
+          return controller.find(params).then(res => {
+            expect(res.length).to.equal(1);
+          });
+        });
+      });
+
+      it('returns the expected results 3', function () {
+        const params = {
+          filters: {},
+          select: RoleController.projection
+        };
+
+        // Inser fake records first.
+        const r = validRoles();
+        return Role.create(r).then(() => {
+          return controller.find(params).then(res => {
+            expect(res.length).to.equal(3);
+          });
         });
       });
     });
