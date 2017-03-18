@@ -142,5 +142,29 @@ describe('controllers/searchController', function () {
       expect(params).to.have.property('sort');
       expect(params.sort).to.be.empty;
     });
+
+    it('works fine with no body', function () {
+      delete request.body;
+      const params = controller.getSearchParams(request);
+      expect(params).to.be.an('object');
+      expect(params).to.have.property('filters');
+      expect(params.filters).to.be.empty;
+    });
+
+    it('defaults to page 0', function () {
+      delete request.page;
+      const params = controller.getSearchParams(request);
+      expect(params).to.be.an('object');
+      expect(params).to.have.property('page');
+      expect(params.page).to.equal(0);
+    });
+
+    it('defaults to limit 10', function () {
+      delete request.limit;
+      const params = controller.getSearchParams(request);
+      expect(params).to.be.an('object');
+      expect(params).to.have.property('limit');
+      expect(params.limit).to.equal(10);
+    });
   });
 });
