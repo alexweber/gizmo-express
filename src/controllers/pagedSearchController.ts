@@ -20,7 +20,7 @@ export abstract class PagedSearchController extends SearchController {
    */
   getPaginationOptions (params: ISearchParams, lean: boolean = true): PaginateOptions {
     let populateOptions = [];
-    let sortTemp = Object.assign({}, params.sort);
+    let sortTemp = params.sort ? Object.assign({}, params.sort) : {};
 
     if (params.populate) {
       let populatedSorts = {};
@@ -43,7 +43,7 @@ export abstract class PagedSearchController extends SearchController {
           select: params.populate[key]
         };
 
-        if (populateParams.sort && populatedSorts.hasOwnProperty(key)) {
+        if (populatedSorts.hasOwnProperty(key)) {
           populateParams.options = { sort: populatedSorts[key] };
         }
 
@@ -55,19 +55,16 @@ export abstract class PagedSearchController extends SearchController {
       lean,
       leanWithId: false,
       limit: params.limit,
-      offset: params.page * params.limit
+      offset: params.page * params.limit,
+      sort: sortTemp
     };
 
     if (params.select) {
       options.select = params.select;
     }
 
-    if (params.sort) {
-      options.sort = params.sort;
-    }
-
-    if (params.populate) {
-      options.populate = params.populate;
+    if (populateOptions.length) {
+      options.populate = populateOptions;
     }
 
     return options;
