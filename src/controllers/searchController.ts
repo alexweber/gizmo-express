@@ -1,7 +1,9 @@
 import { Request } from 'express';
+import { Document } from 'mongoose';
 
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';
 import stripAccents from '../util/stripAccents';
+import { Query } from 'mongoose';
 
 export abstract class SearchController {
 
@@ -80,5 +82,28 @@ export abstract class SearchController {
     });
 
     return processedParams;
+  }
+
+  /**
+   * Helper to apply query parameters.
+   */
+  public setParams (query: Query<Document[]>, params: ISearchParams): Query<Document[]> {
+    if (params.sort) {
+      query.sort(params.sort);
+    }
+
+    if ('limit' in params) {
+      query.limit(params.limit);
+    }
+
+    if ('lean' in params) {
+      query.lean(params.lean);
+    } else {
+      query.lean(true);
+    }
+
+    // Intentionally ignore params.page as we have a PagedSearch interface for that.
+    // This is specifically a simple search.
+    return query;
   }
 }

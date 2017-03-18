@@ -58,23 +58,7 @@ export default class RoleController extends SearchController implements ICrudCon
   /** @inheritdoc */
   public find (params: ISearchParams): Promise<IRole[]> {
     let query = Role.find(params.filters, RoleController.projection);
-
-    if (params.sort) {
-      query.sort(params.sort);
-    }
-
-    if (params.limit) {
-      query.limit(params.limit);
-    }
-
-    if (params.lean) {
-      query.lean(params.lean);
-    }
-
-    // Intentionally ignore params.page as we have a PagedSearch interface for that.
-    // This is specifically a simple search.
-
-    return query.then(results => {
+    return super.setParams(query, params).then(results => {
       return results as IRole[];
     });
   }

@@ -332,10 +332,10 @@ describe('controllers/roleController', function () {
     });
 
     describe('find()', function () {
-      let spy;
+      let findSpy;
 
       beforeEach(function () {
-        spy = sinon.spy(Role, 'find');
+        findSpy = sinon.spy(Role, 'find');
       });
 
       afterEach(function () {
@@ -357,47 +357,38 @@ describe('controllers/roleController', function () {
           select: RoleController.projection
         };
         return controller.find(params).then(() => {
-          expect(spy.calledOnce).to.equal(true);
-          expect(spy.calledWith(params.filters, RoleController.projection)).to.equal(true);
+          expect(findSpy.calledOnce).to.equal(true);
+          expect(findSpy.calledWith(params.filters, RoleController.projection)).to.equal(true);
         });
       });
     });
 
-    describe('find() continued', function () {
-      let stub, sortSpy, limitSpy, dummyFind;
+    // describe('find() calls setParams()', function () {
+    //   let setParamsSpy;
+    //
+    //   beforeEach(function () {
+    //     setParamsSpy = sinon.spy(controller, 'setParams');
+    //   });
+    //
+    //   afterEach(function () {
+    //     controller.setParams.restore();
+    //   });
+    //
+    //   it('calls super.setParams() with the expected parameters', function () {
+    //     const params = {
+    //       filters: {
+    //         slug: 'foo'
+    //       },
+    //       select: RoleController.projection
+    //     };
+    //     return controller.find(params).then(() => {
+    //       expect(setParamsSpy.calledOnce).to.equal(true);
+    //       expect(setParamsSpy.calledWith(Role.find({}), params.filters, RoleController.projection)).to.equal(true);
+    //     });
+    //   });
+    // });
 
-      beforeEach(() => {
-        dummyFind = Role.find({});
-        sortSpy = sinon.spy(dummyFind, 'sort');
-        limitSpy = sinon.spy(dummyFind, 'limit');
-        stub = sinon.stub(Role, 'find');
-        stub.onCall(0).returns(dummyFind);
-      });
-
-      afterEach(() => {
-        dummyFind.sort.restore();
-        dummyFind.limit.restore();
-        stub.restore();
-      });
-
-      it('sets the sort parameter', function () {
-        const params = { sort: {} };
-        return controller.find(params).then(() => {
-          expect(sortSpy.calledOnce).to.equal(true);
-          expect(sortSpy.calledWith(params.sort)).to.equal(true);
-        });
-      });
-
-      it('sets the limit parameter', function () {
-        const params = { limit: 10 };
-        return controller.find(params).then(() => {
-          expect(limitSpy.calledOnce).to.equal(true);
-          expect(limitSpy.calledWith(params.limit)).to.equal(true);
-        });
-      });
-    });
-
-    describe('find() full test with mocked db', function () {
+    describe('find() results', function () {
       before(done => {
         mongoose.disconnect();
         mockgoose.prepareStorage().then(function () {

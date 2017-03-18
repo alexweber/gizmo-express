@@ -4,6 +4,7 @@ import sinon = require('sinon');
 const expect = chai.expect;
 
 import { DummySearchController } from '../fixtures/dummyControllers';
+import Role from '../../src/models/role';
 
 describe('controllers/searchController', function () {
   let controller;
@@ -165,6 +166,51 @@ describe('controllers/searchController', function () {
       expect(params).to.be.an('object');
       expect(params).to.have.property('limit');
       expect(params.limit).to.equal(10);
+    });
+  });
+
+  describe('setParams()', function () {
+    let dummyFind, sortSpy, limitSpy, leanSpy;
+
+    beforeEach(() => {
+      dummyFind = Role.find({});
+      sortSpy = sinon.spy(dummyFind, 'sort');
+      limitSpy = sinon.spy(dummyFind, 'limit');
+      leanSpy = sinon.spy(dummyFind, 'lean');
+    });
+
+    afterEach(() => {
+      dummyFind.sort.restore();
+      dummyFind.limit.restore();
+      dummyFind.lean.restore();
+    });
+
+    it('sets the sort parameter', function () {
+      const params = { sort: {} };
+      controller.setParams(dummyFind, params);
+      expect(sortSpy.calledOnce).to.equal(true);
+      expect(sortSpy.calledWith(params.sort)).to.equal(true);
+    });
+
+    it('sets the limit parameter', function () {
+      const params = { limit: 10 };
+      controller.setParams(dummyFind, params);
+      expect(limitSpy.calledOnce).to.equal(true);
+      expect(limitSpy.calledWith(params.limit)).to.equal(true);
+    });
+
+    it('defaults the lean parameter to true', function () {
+      const params = {};
+      controller.setParams(dummyFind, params);
+      expect(leanSpy.calledOnce).to.equal(true);
+      expect(leanSpy.calledWith(true)).to.equal(true);
+    });
+
+    it('sets the lean parameter', function () {
+      const params = { lean: false };
+      controller.setParams(dummyFind, params);
+      expect(leanSpy.calledOnce).to.equal(true);
+      expect(leanSpy.calledWith(false)).to.equal(true);
     });
   });
 });
