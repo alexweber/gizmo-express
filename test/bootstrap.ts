@@ -45,6 +45,15 @@ export function purgeCache (moduleName) {
   });
 }
 
+export function moduleLoaded (moduleName): boolean {
+  try {
+    let mod = require.resolve(moduleName);
+    return mod && ((mod = require.cache[mod]) !== undefined);
+  } catch(rer) {
+    return false;
+  }
+}
+
 /**
  * Traverses the cache to search for all the cached
  * files of the specified module name
