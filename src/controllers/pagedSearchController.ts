@@ -51,7 +51,7 @@ export abstract class PagedSearchController extends SearchController {
     }
 
     let options: PaginateOptions = {
-      lean: params.lean || true,
+      lean: ('lean' in params ? params.lean : true),
       leanWithId: false,
       limit: params.limit,
       offset: params.page * params.limit,

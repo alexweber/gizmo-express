@@ -71,10 +71,16 @@ describe('controllers/pagedSearchController', function () {
     });
 
     it('sets lean option', function () {
-      const options = controller.getPaginationOptions(params, true);
+      const options = controller.getPaginationOptions(params);
       expect(options).to.be.an('object');
       expect(options).to.have.property('lean');
       expect(options.lean).to.equal(true);
+
+      params.lean = false;
+      const options2 = controller.getPaginationOptions(params);
+      expect(options2).to.be.an('object');
+      expect(options2).to.have.property('lean');
+      expect(options2.lean).to.equal(false);
     });
 
     it('sets limit', function () {
