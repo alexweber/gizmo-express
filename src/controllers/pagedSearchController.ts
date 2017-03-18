@@ -25,15 +25,17 @@ export abstract class PagedSearchController extends SearchController {
     if (params.populate) {
       let populatedSorts = {};
 
-      Object.keys(params.sort).forEach(key => {
-        // If we're sorting on a key that's populated, break it up.
-        if (key.indexOf('.') !== -1) {
-          const temp = key.split('.');
-          populatedSorts[temp[0]] = {};
-          populatedSorts[temp[0]][temp[1]] = params.sort[key];
-          delete sortTemp[key];
-        }
-      });
+      if (params.sort) {
+        Object.keys(params.sort).forEach(key => {
+          // If we're sorting on a key that's populated, break it up.
+          if (key.indexOf('.') !== -1) {
+            const temp = key.split('.');
+            populatedSorts[temp[0]] = {};
+            populatedSorts[temp[0]][temp[1]] = params.sort[key];
+            delete sortTemp[key];
+          }
+        });
+      }
 
       Object.keys(params.populate).forEach(key => {
         let populateParams: any = {
@@ -53,7 +55,7 @@ export abstract class PagedSearchController extends SearchController {
       lean,
       leanWithId: false,
       limit: params.limit,
-      offset: (params.page - 1) * params.limit
+      offset: params.page * params.limit
     };
 
     if (params.select) {
