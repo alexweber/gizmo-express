@@ -20,8 +20,8 @@ export abstract class SearchController {
    * @returns {ISearchParams}
    */
   getSearchParams (req: Request): ISearchParams {
-    const page = Number(req.query.page);
-    const limit = Number(req.query.limit);
+    const page = Number(req.query.page || 0);
+    const limit = Number(req.query.limit || 10);
     const filters = req.body || {};
     // @TODO sanitize
     // const page = Number(sanitizer.sanitize(req.query.page));
