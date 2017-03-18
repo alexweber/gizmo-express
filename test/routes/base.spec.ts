@@ -46,4 +46,11 @@ describe('BaseRouter', function () {
     let router = new DummyRouter(Router);
     expect(router.prefix).to.equal('/v1');
   });
+
+  it('has an error handler', function () {
+    let router = new DummyRouter(Router);
+    expect(router).to.respondTo('errorHandler');
+  });
+
+  // @TODO test actual error handling
 });
