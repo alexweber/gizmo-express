@@ -55,6 +55,7 @@
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "sinon-stub-promise": "^4.0.0",
+    "standard-version": "^4.0.0",
     "ts-node": "^2.1.0",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1"
