@@ -1,14 +1,14 @@
 # Gizmo Express
 
-> An opinionated started for an Express API server using Typescript and Mongoose.
+> An opinionated Express API server starter using Typescript and Mongoose.
 
 ### Features
 * 100% Typescript
-* Built for an Angular 2 backend server
+* Built for an Angular 2+ backend
 * Smart [config](https://github.com/lorenwest/node-config) management
-* Comprehensive test-suite with 100+ tests and >85% code coverage
+* Comprehensive test-suite with 150+ tests and >90% code coverage
 
 ### Caveats
 * Waiting on Angular 4 + Universal updates before integrating it
-* Typescript compilation into /dist dir shouldn't include tests, maybe Angular 4 CLI will have a solution
-* Not ready for production by any means
+* Typescript compilation into /dist/src and /dist/test is fugly, maybe Angular 4 CLI will have a solution?
+* Not actually used in production yet, TDD all the way
