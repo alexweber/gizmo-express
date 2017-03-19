@@ -9,12 +9,19 @@ import cache from '../../src/middleware/cache';
 import { onlyStatus200s } from '../../src/middleware/cache';
 import { purgeCache } from '../bootstrap';
 
+// Hacky-ass helper.
 const reloadCache = () => {
   purgeCache('../src/middleware/cache');
   require('../../src/middleware/cache');
 };
 
 describe('middleware/cache', function () {
+
+  afterEach(() => {
+    config['cache']['debug'] = true;
+    config['cache']['redis'] = false;
+    reloadCache();
+  });
 
   it('should exist', function () {
     expect(cache).to.exist;
@@ -34,8 +41,6 @@ describe('middleware/cache', function () {
     reloadCache();
     const options = apicache.options();
     expect(options.debug).to.equal(false);
-    config['cache']['debug'] = true;
-    reloadCache();
   });
 
   it('disables redis by default', function () {
@@ -49,8 +54,6 @@ describe('middleware/cache', function () {
     const options = apicache.options();
     expect(options.redisClient).to.not.equal(false);
     expect(options.redisClient).to.be.an('object');
-    config['cache']['redis'] = false;
-    reloadCache();
   });
 
   it('only caches successfull requests', function () {
@@ -71,6 +74,5 @@ describe('middleware/cache', function () {
     expect(spy.called).to.equal(true);
     expect(spy.calledWith(args, onlyStatus200s)).to.equal(true);
     spy.restore();
-    reloadCache();
   });
 });
