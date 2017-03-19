@@ -22,7 +22,7 @@ describe('main server script', function () {
   });
 
   it('mongoose debug mode is disabled by default', function () {
-    expect(mongoose.get('debug')).to.not.equal(true);
+    expect(mongoose.get('debug')).to.not.eq(true);
   });
 
   describe('debug mode', function () {
@@ -50,17 +50,17 @@ describe('main server script', function () {
   describe('known model discovery', function () {
     it('includes the role model', function () {
       const loaded = moduleLoaded('../src/models/role');
-      expect(loaded).to.equal(true);
+      expect(loaded).to.eq(true);
     });
 
     it('includes the user model', function () {
       const loaded = moduleLoaded('../src/models/user');
-      expect(loaded).to.equal(true);
+      expect(loaded).to.eq(true);
     });
 
     it("doesn't include fake model", function () {
       const loaded = moduleLoaded('../src/models/fake');
-      expect(loaded).to.equal(false);
+      expect(loaded).to.eq(false);
     });
   });
 
@@ -74,11 +74,12 @@ describe('main server script', function () {
     });
 
     it('returns false when none found', function () {
-      expect(server.getRouteHandler('foo')).to.equal(false);
+      expect(server.getRouteHandler('foo')).to.eq(false);
+      expect(server.getRouteHandler()).to.eq(false);
     });
 
     it('returns route handlers when they exist', function () {
-      expect(server.getRouteHandler('index')).to.not.equal(false);
+      expect(server.getRouteHandler('index')).to.not.eq(false);
       expect(server.getRouteHandler('index')).to.be.an('object');
     });
   });
