@@ -2,7 +2,7 @@ import chai = require('chai');
 
 const expect = chai.expect;
 
-import Role from '../../src/models/role';
+import Role from '../../src/models/role.model';
 
 describe('models/Role', function () {
 

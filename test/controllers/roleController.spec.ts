@@ -8,7 +8,7 @@ const mockgoose = new Mockgoose(mongoose);
 
 const expect = chai.expect;
 
-import Role from '../../src/models/role';
+import Role from '../../src/models/role.model';
 import validRoles from '../fixtures/validRoles';
 import RoleController from '../../src/controllers/roleController';
 

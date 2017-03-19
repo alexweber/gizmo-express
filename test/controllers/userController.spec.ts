@@ -8,7 +8,7 @@ const mockgoose = new Mockgoose(mongoose);
 
 const expect = chai.expect;
 
-import User from '../../src/models/user';
+import User from '../../src/models/user.model';
 import validUsers from '../fixtures/validUsers';
 import UserController from '../../src/controllers/userController';
 

@@ -4,7 +4,7 @@ import { ICrudController } from './interfaces/crud.interface';
 import { PagedSearchController } from './pagedSearchController';
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';
 import { IUser } from '../models/interfaces/user.interface';
-import User from '../models/user';
+import User from '../models/user.model';
 
 export default class UserController extends PagedSearchController implements ICrudController {
 

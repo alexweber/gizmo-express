@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 import { ICrudController } from './interfaces/crud.interface';
-import Role from '../models/role';
+import Role from '../models/role.model';
 import { IRole } from '../models/interfaces/role.interface';
 import { ISimpleSearchController } from './interfaces/simpleSearch.interface';
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';

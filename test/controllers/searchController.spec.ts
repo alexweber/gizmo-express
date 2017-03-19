@@ -4,7 +4,7 @@ import sinon = require('sinon');
 const expect = chai.expect;
 
 import { DummySearchController } from '../fixtures/dummyControllers';
-import Role from '../../src/models/role';
+import Role from '../../src/models/role.model';
 
 describe('controllers/searchController', function () {
   let controller;
