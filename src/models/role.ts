@@ -17,4 +17,12 @@ const Role = new Schema({
   description: String
 });
 
-export default mongoose.model('Role', Role);
+let RoleModel;
+
+if (mongoose['models'].Role) {
+  RoleModel = mongoose.model('Role');
+} else {
+  RoleModel = mongoose.model('Role', Role);
+}
+
+export default RoleModel;

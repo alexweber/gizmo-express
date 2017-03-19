@@ -29,4 +29,12 @@ const User = new Schema({
 
 User.plugin(mongoosePaginate);
 
-export default mongoose.model('User', User);
+let UserModel;
+
+if (mongoose['models'].User) {
+  UserModel = mongoose.model('User');
+} else {
+  UserModel = mongoose.model('User', User);
+}
+
+export default UserModel;
