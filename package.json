@@ -27,10 +27,12 @@
     "express": "^4.15.2",
     "express-jwt": "^5.1.0",
     "helmet": "^3.5.0",
+    "lodash.isobject": "^3.0.2",
     "mongoose": "^4.8.6",
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.8.1",
-    "redis": "^2.7.1"
+    "redis": "^2.7.1",
+    "validator": "^7.0.0"
   },
   "devDependencies": {
     "@types/acl": "^0.4.32",
@@ -41,6 +43,7 @@
     "@types/debug": "^0.0.29",
     "@types/errorhandler": "^0.0.30",
     "@types/express-jwt": "^0.0.34",
+    "@types/lodash.isobject": "^3.0.1",
     "@types/mocha": "^2.2.39",
     "@types/mongoose": "^4.7.8",
     "@types/mongoose-paginate": "^5.0.4",
@@ -49,6 +52,7 @@
     "@types/sinon": "^1.16.35",
     "@types/sinon-chai": "^2.7.27",
     "@types/sinon-stub-promise": "^1.0.27",
+    "@types/validator": "^6.2.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "concurrently": "^3.4.0",
