@@ -18,6 +18,7 @@ describe('CrudRouter', function () {
   let app, router;
 
   before(done => {
+    mongoose.disconnect();
     mockgoose.prepareStorage().then(function () {
       mongoose.connect('mongodb://example.com/TestingDB', function (err) {
         done(err);
