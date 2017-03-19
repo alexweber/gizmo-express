@@ -15,7 +15,7 @@
     "start": "node ./bin/www",
     "start:dev": "NODE_ENV=development DEBUG=gizmo-express:* nodemon --inspect ./bin/www",
     "dev": "yarn build && concurrently --kill-others \"yarn build:dev\" \"yarn start:dev\"",
-    "release": "standard-version"
+    "release": "yarn test && standard-version"
   },
   "dependencies": {
     "acl": "^0.4.10",
