@@ -11,6 +11,7 @@ import { debug } from './util/debug';
 import mongoose = require('mongoose');
 import { Connection } from 'mongoose';
 import config = require('config');
+import acl = require('acl');
 
 import { IndexRouter } from './routes/index';
 import { AdminRouter } from './routes/admin';
@@ -37,6 +38,11 @@ export class Server {
   public db: Connection;
 
   /**
+   *
+   */
+  public acl: any;
+
+  /**
    * Initialized route handlers.
    */
   private routeHandlers: { [prop: string]: BaseRouter } = {};
@@ -60,6 +66,9 @@ export class Server {
 
     // Init database.
     this.database();
+
+    // Init ACL.
+    this.permissions();
 
     // Init routes.
     this.routes();
@@ -182,6 +191,16 @@ export class Server {
         debug('[db] Connected to MongoDB!');
       });
     }
+  }
+
+  /**
+   * Init Access Control Layer.
+   */
+  private permissions () {
+    //noinspection JSPotentiallyInvalidConstructorUsage
+    this.acl = new acl(new acl.memoryBackend());
+
+    // @TODO init ACL crap.
   }
 
   /**
