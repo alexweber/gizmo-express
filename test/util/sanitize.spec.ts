@@ -14,10 +14,6 @@ describe('util/sanitize', function () {
     expect(sanitize).to.be.a('function');
   });
 
-  it('should not strip accents', function () {
-    expect(sanitize('íêàçõûñü')).to.eq('íêàçõûñü');
-    expect(sanitize('ÍÊÀÇÕÛÑÜ')).to.eq('ÍÊÀÇÕÛÑÜ');
-  });
 
   it('should sanitize simple values without type-casting them', function () {
     expect(sanitize('test')).to.eq('test');
@@ -28,6 +24,11 @@ describe('util/sanitize', function () {
     expect(sanitize(undefined)).to.eq(undefined);
     expect(sanitize(true)).to.eq(true);
     expect(sanitize(null)).to.eq(null);
+  });
+
+  it('should not strip accents', function () {
+    expect(sanitize('íêàçõûñü')).to.eq('íêàçõûñü');
+    expect(sanitize('ÍÊÀÇÕÛÑÜ')).to.eq('ÍÊÀÇÕÛÑÜ');
   });
 
   it('should mangle functions', function () {
@@ -126,7 +127,7 @@ describe('util/sanitize', function () {
     expect(sanitize('<img src=x onerror=alert(1)//>')).to.deep.equal('&lt;img src=x onerror=alert(1)&#x2F;&#x2F;&gt;');
   });
 
-  it('should preserver html if specified', function () {
+  it('should preserve HTML if specified', function () {
     expect(sanitize('<img src=x onerror=alert(1)//>', true)).to.deep.equal('<img src="x">');
   });
 });
