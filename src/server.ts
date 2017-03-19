@@ -202,6 +202,6 @@ export class Server {
    * @returns {BaseRouter|boolean}
    */
   public getRouteHandler (name: string): BaseRouter|false {
-    return this.routeHandlers.hasOwnProperty(name) ? this.routeHandlers[name] : false;
+    return this.routeHandlers[name] || false;
   }
 }
