@@ -128,8 +128,8 @@ export class Server {
    */
   private database () {
     // Debug mode.
-    if (config.has('db.debug') && config.get('db.debug')) {
-      mongoose.set('debug', true);
+    if (config.has('db.debug')) {
+      mongoose.set('debug', config.get('db.debug'));
     }
 
     // Help avoiding topology destroyed errors.

@@ -5,7 +5,13 @@ import config = require('config');
 
 const expect = chai.expect;
 
-import { getServer, moduleLoaded } from './bootstrap';
+import { getServer, moduleLoaded, purgeCache } from './bootstrap';
+
+// Hacky-ass helper.
+const reloadCache = () => {
+  purgeCache('../src/server');
+  require('../src/server');
+};
 
 describe('main server script', function () {
   let server, app;
@@ -29,7 +35,15 @@ describe('main server script', function () {
     });
 
     it('enables mongoose debug mode if specified in config', function () {
-      expect(mongoose.get('debug')).to.equal(true);
+      expect(mongoose.get('debug')).to.eq(true);
+    });
+
+    it('disables mongoose debug mode if specified in config', function () {
+      config['db']['debug'] = false;
+      reloadCache();
+      server = getServer();
+      app = server.app;
+      expect(mongoose.get('debug')).to.eq(false);
     });
   });
 
