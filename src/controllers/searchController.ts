@@ -30,11 +30,10 @@ export abstract class SearchController {
     // const limit = Number(sanitizer.sanitize(req.query.limit));
     // const filters = req.body ? sanitizeObject(req.body) : {};
     const sortField = req.query.sort ? req.query.sort : null;
-    let sort = {};
-
-    if (sortField) {
-      sort[sortField] = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
-    }
+    const sortDir = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
+    const sort = sortField ? {
+        [sortField]: sortDir
+      } : {};
 
     return { page, limit, filters, sort, lean: true };
   }
@@ -43,18 +42,18 @@ export abstract class SearchController {
    * Convert a "search" parameter into actual query conditions.
    */
   addSearchFilter (params: ISearchParams, fields: string[]): ISearchParams {
-    let processedParams = Object.assign({}, params);
+    const processedParams = Object.assign({}, params);
     const strippedTerm = stripAccents(processedParams.filters['search']).trim();
 
     if (fields.length > 1) {
       processedParams.filters['$or'] = [];
       fields.forEach(field => {
-        let obj = {};
-        obj[field] = {
-          $regex: strippedTerm,
-          $options: 'i'
-        };
-        processedParams.filters['$or'].push(obj);
+        processedParams.filters['$or'].push({
+          [field]: {
+            $regex: strippedTerm,
+            $options: 'i'
+          }
+        });
       });
     } else {
       processedParams.filters[fields[0]] = strippedTerm;
@@ -72,7 +71,7 @@ export abstract class SearchController {
       return params;
     }
 
-    let processedParams = Object.assign({}, params);
+    const processedParams = Object.assign({}, params);
 
     // Remove null filters.
     Object.keys(processedParams.filters).forEach(key => {

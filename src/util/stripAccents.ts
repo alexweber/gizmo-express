@@ -1,12 +1,4 @@
-const stripAccents = function (str: string): string {
-  for (let i = 0, n = diacriticsRemovalMap.length; i < n; i++) {
-    str = str.replace(diacriticsRemovalMap[i].letters, diacriticsRemovalMap[i].base);
-  }
-  return str;
-};
-
-export default stripAccents;
-
+/* tslint:disable:max-line-length */
 const diacriticsRemovalMap = [
   {
     'base': 'A',
@@ -168,3 +160,18 @@ const diacriticsRemovalMap = [
   },
   { 'base': 'z', 'letters': /[\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763]/g }
 ];
+/* tslint:enable:max-line-length */
+
+/**
+ *  Strips accents from latin characters.
+ */
+const stripAccents = function (str: string): string {
+  let target = `${str}`;
+  const n = diacriticsRemovalMap.length;
+  for (let i = 0; i < n; i++) {
+    target = target.replace(diacriticsRemovalMap[i].letters, diacriticsRemovalMap[i].base);
+  }
+  return target;
+};
+
+export default stripAccents;

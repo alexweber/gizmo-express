@@ -3,7 +3,7 @@ import config = require('config');
 import redis = require('redis');
 
 // @TODO add type when @types/apicache is available.
-let options: any = {
+const options: any = {
   debug: config.get('cache.debug')
 };
 

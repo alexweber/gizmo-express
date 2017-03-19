@@ -18,11 +18,11 @@ export abstract class PagedSearchController extends SearchController {
    * Helper to build mongoose pagination options.
    */
   getPaginationOptions (params: ISearchParams): PaginateOptions {
-    let populateOptions = [];
-    let sortTemp = params.sort ? Object.assign({}, params.sort) : {};
+    const populateOptions = [];
+    const sortTemp = params.sort ? Object.assign({}, params.sort) : {};
 
     if (params.populate) {
-      let populatedSorts = {};
+      const populatedSorts = {};
 
       if (params.sort) {
         Object.keys(params.sort).forEach(key => {
@@ -37,7 +37,7 @@ export abstract class PagedSearchController extends SearchController {
       }
 
       Object.keys(params.populate).forEach(key => {
-        let populateParams: any = {
+        const populateParams: any = {
           path: key,
           select: params.populate[key]
         };
@@ -50,7 +50,7 @@ export abstract class PagedSearchController extends SearchController {
       });
     }
 
-    let options: PaginateOptions = {
+    const options: PaginateOptions = {
       lean: ('lean' in params ? params.lean : true),
       leanWithId: false,
       limit: params.limit,
