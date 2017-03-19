@@ -4,6 +4,7 @@
   "description": "Gizmo's Express TypeScript starter",
   "author": "Alex Weber <alexweber15@gmail.com> (http://alexweber.com.br)",
   "license": "Unlicense",
+  "repository": "https://bitbucket.org/alexweber/gizmo-express",
   "private": true,
   "scripts": {
     "lint": "tslint \"src/**/*.ts\"",
