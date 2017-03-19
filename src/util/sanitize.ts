@@ -2,12 +2,22 @@ import _isObject = require('lodash.isobject');
 import escape = require('validator/lib/escape');
 import trim = require('validator/lib/trim');
 
+const createDOMPurify = require('dompurify');
+const jsdom = require('jsdom');
+const window = jsdom.jsdom('', {
+  features: {
+    FetchExternalResources: false,
+    ProcessExternalResources: false
+  }
+}).defaultView;
+const DOMPurify = createDOMPurify(window);
+
 /**
  * Sanitizes strings, numbers and other simple values.
  */
 const sanitizeString = function (str: string|number): string {
-  // Coerce to string to avoid errors.
-  return trim(escape('' + str));
+  // Coerce to string to avoid errors.y
+  return DOMPurify.sanitize(trim(escape('' + str)));
 };
 
 /**
