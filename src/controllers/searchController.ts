@@ -10,7 +10,7 @@ export abstract class SearchController {
   /**
    * The default projection for queries.
    *
-   * @type {string}
+   * @type {String}
    */
   static projection = '-__v';
 

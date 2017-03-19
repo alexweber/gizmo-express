@@ -25,9 +25,12 @@ export function getServer () {
   return Server.bootstrap();
 }
 
-// Helpers.
+// Helpers to dink with the require cache.
+
 /**
- * Removes a module from the cache
+ * Purges the require cache for a given module.
+ *
+ * @param moduleName {String}
  */
 export function purgeCache (moduleName) {
   // Traverse the cache looking for the files

@@ -8,7 +8,7 @@ export abstract class CrudRouter extends BaseRouter {
   /**
    * Generate CRUD routes.
    *
-   * @param name {string} The name to use as a path prefix.
+   * @param name {String} The name to use as a path prefix.
    * @param controller {ICrudController} The controller to use.
    */
   createCrud (name: string, controller: ICrudController) {
