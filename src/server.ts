@@ -26,6 +26,9 @@ export class Server {
    */
   public app: express.Application;
 
+  /**
+   * The Express Router instance.
+   */
   public router: express.Router;
 
   /**
@@ -75,7 +78,7 @@ export class Server {
     // Mount logger.
     this.app.use(logger('dev'));
 
-    // Mount json form parser.
+    // Mount JSON form parser.
     this.app.use(bodyParser.json());
 
     // Mount query string parser.
