@@ -13,6 +13,18 @@ const window = jsdom.jsdom('', {
 const DOMPurify = createDOMPurify(window);
 
 /**
+ * Sanitizes strings.
+ */
+const sanitizeString = function (str: string, html = false): string {
+  // Coerce to string to avoid errors.
+  let cleanStr = '' + str;
+  if (!html) {
+    cleanStr = escape(cleanStr);
+  }
+  return DOMPurify.sanitize(trim(cleanStr));
+};
+
+/**
  * Sanitizes simple values. Objects will get mangled.
  */
 const sanitizeSimple = function (val: any, html = false): any {
@@ -36,18 +48,6 @@ const sanitizeSimple = function (val: any, html = false): any {
 };
 
 /**
- * Sanitizes strings.
- */
-const sanitizeString = function (str: string, html = false): string {
-  // Coerce to string to avoid errors.
-  let cleanStr = '' + str;
-  if (!html) {
-    cleanStr = escape(cleanStr);
-  }
-  return DOMPurify.sanitize(trim(cleanStr));
-};
-
-/**
  * Sanitizes an array recursively.
  */
 const sanitizeArray = function (arr: any[], html = false): any[] {
@@ -55,7 +55,9 @@ const sanitizeArray = function (arr: any[], html = false): any[] {
     if (Array.isArray(val)) {
       return sanitizeArray(val, html);
     } else if (_isObject(val)) {
+      /* tslint:disable:no-use-before-declare */
       return sanitizeObject(val, html);
+      /* tslint:enable:no-use-before-declare */
     } else {
       return sanitizeSimple(val, html);
     }

@@ -4,6 +4,7 @@ import { Document } from 'mongoose';
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';
 import stripAccents from '../util/stripAccents';
 import { Query } from 'mongoose';
+import sanitize from '../util/sanitize';
 
 export abstract class SearchController {
 
@@ -22,14 +23,10 @@ export abstract class SearchController {
    * @returns {ISearchParams}
    */
   getSearchParams (req: Request): ISearchParams {
-    const page = Number(req.query.page || 0);
-    const limit = Number(req.query.limit || 10);
-    const filters = req.body || {};
-    // @TODO sanitize
-    // const page = Number(sanitizer.sanitize(req.query.page));
-    // const limit = Number(sanitizer.sanitize(req.query.limit));
-    // const filters = req.body ? sanitizeObject(req.body) : {};
-    const sortField = req.query.sort ? req.query.sort : null;
+    const page = sanitize(req.query.page || 0);
+    const limit = sanitize(req.query.limit || 10);
+    const filters = req.body ? sanitize(req.body) : {};
+    const sortField = req.query.sort ? sanitize(req.query.sort) : null;
     const sortDir = req.query.dir === 'asc' || req.query.dir === 'desc' ? req.query.dir : 'desc';
     const sort = sortField ? {
         [sortField]: sortDir

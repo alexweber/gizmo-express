@@ -95,8 +95,6 @@ export class Server {
       extended: true
     }));
 
-    // @TODO validator/sanitizer.
-
     // Use compression.
     this.app.use(compression());
 
