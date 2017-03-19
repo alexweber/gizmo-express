@@ -47,6 +47,13 @@ describe('main server script', function () {
     });
   });
 
+  describe('mongo connection', function () {
+
+    // it('connects to mongodb', function () {
+      // @TODO
+    // });
+  });
+
   describe('known model discovery', function () {
     it('includes the role model', function () {
       const loaded = moduleLoaded('../src/models/role');
