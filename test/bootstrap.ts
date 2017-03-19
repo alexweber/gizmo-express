@@ -18,6 +18,16 @@ sinonStubPromise(sinon);
 import mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
+// Mock Redis.
+const mock = require('mock-require');
+
+mock('redis', {
+  createClient: function () {
+    console.log('createClient called');
+    return {};
+  }
+});
+
 // Convenience.
 import { Server } from '../src/server';
 
@@ -52,7 +62,7 @@ export function moduleLoaded (moduleName): boolean {
   try {
     let mod = require.resolve(moduleName);
     return mod && ((mod = require.cache[mod]) !== undefined);
-  } catch(rer) {
+  } catch (err) {
     return false;
   }
 }
