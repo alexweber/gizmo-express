@@ -7,11 +7,12 @@
 * Express 4 REST API server boilerplate
 * Built for an Angular 2+ backend
 * Simple and easy to work with
-* Comprehensive test-suite with 150+ tests and >90% code coverage
+* Comprehensive test-suite with 150+ tests and >85% code coverage (and counting)
 
 ## Features
 * Smart [config](https://github.com/lorenwest/node-config) management
 * Dynamic CRUD routes for arbitrary resources
+* Convenient but powerful sanitizer
 * Robust [acl](https://github.com/OptimalBits/node_acl) (_in progress_)
 * Powerful caching with [apicache](https://github.com/kwhitley/apicache) and optional [Redis](https://redis.io/) support   
 * Data seeding (_in progress_)
