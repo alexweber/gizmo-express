@@ -16,9 +16,9 @@
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.0.tgz#2633470a4eabe9a47cd9a45fdb20ed5f93407bca"
 
-"@types/body-parser@^1.16.0":
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.0.tgz#98e9dd9664a7fa814fec2c50c95bbf9edacf5f05"
+"@types/body-parser@^1.16.1":
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.1.tgz#4c1dc2d6ace3b8f74447020493aa19c5d8287d9a"
   dependencies:
     "@types/express" "*"
     "@types/node" "*"
@@ -92,9 +92,9 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.29.tgz#fbcfd330573b912ef59eeee14602bface630754b"
 
-"@types/mocha@^2.2.39":
-  version "2.2.39"
-  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.39.tgz#f68d63db8b69c38e9558b4073525cf96c4f7a829"
+"@types/mocha@^2.2.40":
+  version "2.2.40"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.40.tgz#9811dd800ece544cd84b5b859917bf584a150c4c"
 
 "@types/mongodb@*":
   version "2.1.41"
