@@ -6,12 +6,12 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
-import errorHandler = require('errorhandler');
-import { debug } from './util/debug';
+import * as config from 'config';
+import * as errorHandler from 'errorhandler';
 import mongoose = require('mongoose');
 import { Connection } from 'mongoose';
-import config = require('config');
 import acl = require('acl');
+import { debug } from './util/debug';
 
 import { IndexRouter } from './routes/index';
 import { AdminRouter } from './routes/admin';
