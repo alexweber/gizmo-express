@@ -103,9 +103,9 @@ describe('server', () => {
       app = server.app;
     });
 
-    // it('connects to mongodb', function () {
-    //   expect(connectSpy.calledOnce).to.equal(true);
-    // });
+    it('connects to mongodb', function () {
+      expect(connectSpy.called).to.equal(true);
+    });
   });
 
   describe('known model discovery', function () {

@@ -175,19 +175,17 @@ export class Server {
       .forEach(file => require(path.join(mongooseModels, file)));
 
     // Finally, connect to Mongo and Store connection.
-    if (this.app.get('env') !== 'test') {
-      mongoose.connect(<string>config.get('db.dsn'), mongooseOptions);
+    mongoose.connect(<string>config.get('db.dsn'), mongooseOptions);
 
-      this.db = mongoose.connection;
+    this.db = mongoose.connection;
 
-      this.db.on('error', err => {
-        debug(`[db] ${err}`);
-      });
+    this.db.on('error', err => {
+      debug(`[db] ${err}`);
+    });
 
-      this.db.once('open', () => {
-        debug('[db] Connected to MongoDB!');
-      });
-    }
+    this.db.once('open', () => {
+      debug('[db] Connected to MongoDB!');
+    });
   }
 
   /**
