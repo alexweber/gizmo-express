@@ -1,16 +1,21 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
 
-const expect = chai.expect;
-
 import { DummySearchController } from '../fixtures/dummyControllers';
 import Role from '../../src/models/role.model';
+
+const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 describe('controllers/searchController', function () {
   let controller;
 
   beforeEach(() => {
     controller = new DummySearchController();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('should project values', function () {
@@ -174,9 +179,9 @@ describe('controllers/searchController', function () {
 
     beforeEach(() => {
       dummyFind = Role.find({});
-      sortSpy = sinon.spy(dummyFind, 'sort');
-      limitSpy = sinon.spy(dummyFind, 'limit');
-      leanSpy = sinon.spy(dummyFind, 'lean');
+      sortSpy = sandbox.spy(dummyFind, 'sort');
+      limitSpy = sandbox.spy(dummyFind, 'limit');
+      leanSpy = sandbox.spy(dummyFind, 'lean');
     });
 
     afterEach(() => {

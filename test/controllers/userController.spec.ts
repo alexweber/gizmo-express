@@ -6,18 +6,22 @@ import * as mongoose from 'mongoose';
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 
-const expect = chai.expect;
-
 import User from '../../src/models/user.model';
 import validUsers from '../fixtures/validUsers';
 import UserController from '../../src/controllers/userController';
 
-let controller;
+const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 describe('controllers/userController', function () {
+let controller;
 
   beforeEach(function () {
     controller = new UserController();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('should exist', function () {
@@ -335,10 +339,10 @@ describe('controllers/userController', function () {
       let paginationSpy, nullSpy, optionSpy, filterSpy;
 
       beforeEach(function () {
-        paginationSpy = sinon.spy(User, 'paginate');
-        nullSpy = sinon.spy(controller, 'stripNullFilters');
-        optionSpy = sinon.spy(controller, 'getPaginationOptions');
-        filterSpy = sinon.spy(controller, 'addSearchFilter');
+        paginationSpy = sandbox.spy(User, 'paginate');
+        nullSpy = sandbox.spy(controller, 'stripNullFilters');
+        optionSpy = sandbox.spy(controller, 'getPaginationOptions');
+        filterSpy = sandbox.spy(controller, 'addSearchFilter');
       });
 
       afterEach(function () {

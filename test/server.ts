@@ -17,6 +17,11 @@ const reloadCache = () => {
 const sandbox = sinon.sandbox.create();
 
 describe('server', () => {
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   describe('main server script', function () {
     let server, app, configSpy, dbSpy, permSpy, routeSpy, clientSpy;
 
@@ -91,13 +96,11 @@ describe('server', () => {
 
     beforeEach(() => {
       reloadCache();
-      connectSpy = sinon.spy(mongoose, 'connect');
+      purgeCache('mongoose');
+      require('mongoose');
+      connectSpy = sandbox.spy(mongoose, 'connect');
       server = Server.bootstrap();
       app = server.app;
-    });
-
-    afterEach(() => {
-      mongoose.connect['restore']();
     });
 
     // it('connects to mongodb', function () {

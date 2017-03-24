@@ -6,18 +6,22 @@ import * as mongoose from 'mongoose';
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 
-const expect = chai.expect;
-
 import Role from '../../src/models/role.model';
 import validRoles from '../fixtures/validRoles';
 import RoleController from '../../src/controllers/roleController';
 
-let controller;
+const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 describe('controllers/roleController', function () {
+  let controller;
 
   beforeEach(function () {
     controller = new RoleController();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('should exist', function () {
@@ -335,7 +339,7 @@ describe('controllers/roleController', function () {
       let findSpy;
 
       beforeEach(function () {
-        findSpy = sinon.spy(Role, 'find');
+        findSpy = sandbox.spy(Role, 'find');
       });
 
       afterEach(function () {
@@ -367,7 +371,7 @@ describe('controllers/roleController', function () {
     //   let setParamsSpy;
     //
     //   beforeEach(function () {
-    //     setParamsSpy = sinon.spy(controller, 'setParams');
+    //     setParamsSpy = sandbox.spy(controller, 'setParams');
     //   });
     //
     //   afterEach(function () {

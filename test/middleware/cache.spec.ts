@@ -8,6 +8,7 @@ import { onlyStatus200s } from '../../src/middleware/cache';
 import { purgeCache } from '../bootstrap';
 
 const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 // Hacky-ass helper.
 const reloadCache = () => {
@@ -21,6 +22,7 @@ describe('middleware/cache', function () {
     config['cache']['debug'] = true;
     config['cache']['redis'] = false;
     reloadCache();
+    sandbox.restore();
   });
 
   it('should exist', function () {
@@ -67,7 +69,7 @@ describe('middleware/cache', function () {
   });
 
   it('calls apicache middleware with the correct parameters', function () {
-    const spy = sinon.spy(apicache, 'middleware');
+    const spy = sandbox.spy(apicache, 'middleware');
     const args = '1 month';
     reloadCache();
     cache(args);
