@@ -1,7 +1,10 @@
+import * as path from 'path';
+import * as fs from 'fs';
 import * as chai from 'chai';
 import * as sinon from 'sinon';
 import * as mongoose from 'mongoose';
 import * as config from 'config';
+import { Connection }  from 'mongoose';
 
 const expect = chai.expect;
 
@@ -12,6 +15,9 @@ import { moduleLoaded, purgeCache } from './bootstrap';
 const reloadCache = () => {
   purgeCache('../src/server');
   require('../src/server');
+  mongoose.disconnect();
+  purgeCache('mongoose');
+  require('mongoose');
 };
 
 const sandbox = sinon.sandbox.create();
@@ -75,8 +81,6 @@ describe('server', () => {
     it('enables mongoose debug mode if specified in config', function () {
       config['db']['debug'] = true;
       reloadCache();
-      purgeCache('mongoose');
-      require('mongoose');
       server = Server.bootstrap();
       expect(mongoose.get('debug')).to.eq(true);
     });
@@ -84,27 +88,38 @@ describe('server', () => {
     it('disables mongoose debug mode if specified in config', function () {
       config['db']['debug'] = false;
       reloadCache();
-      purgeCache('mongoose');
-      require('mongoose');
       server = Server.bootstrap();
       expect(mongoose.get('debug')).to.eq(false);
     });
   });
 
   describe('mongo connection', function () {
-    let connectSpy, server, app;
+    let app, server, connectSpy, errorSpy, openSpy;
 
     beforeEach(() => {
       reloadCache();
-      purgeCache('mongoose');
-      require('mongoose');
       connectSpy = sandbox.spy(mongoose, 'connect');
+      errorSpy = sandbox.spy(Connection.prototype, 'on');
+      openSpy = sandbox.spy(Connection.prototype, 'once');
       server = Server.bootstrap();
       app = server.app;
     });
 
     it('connects to mongodb', function () {
-      expect(connectSpy.called).to.equal(true);
+      expect(connectSpy.calledWith(config['db']['dsn'])).to.equal(true);
+    });
+
+    it('stores a reference to the connection', function () {
+      expect(server.db).to.exist;
+      expect(server.db).to.be.an.instanceOf(Connection);
+    });
+
+    it('listens to connection error events', function () {
+      expect(errorSpy.called).to.equal(true);
+    });
+
+    it('listens to the connection open event', function () {
+      expect(openSpy.called).to.equal(true);
     });
   });
 
