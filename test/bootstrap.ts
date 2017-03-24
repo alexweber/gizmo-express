@@ -28,13 +28,6 @@ mock('redis', {
   }
 });
 
-// Convenience.
-import { Server } from '../src/server';
-
-export function getServer () {
-  return Server.bootstrap();
-}
-
 // Helpers to dink with the require cache.
 
 /**

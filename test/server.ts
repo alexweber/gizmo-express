@@ -5,7 +5,8 @@ import config = require('config');
 
 const expect = chai.expect;
 
-import { getServer, moduleLoaded, purgeCache } from './bootstrap';
+import { Server } from '../src/server';
+import { moduleLoaded, purgeCache } from './bootstrap';
 
 // Hacky-ass helper.
 const reloadCache = () => {
@@ -13,12 +14,43 @@ const reloadCache = () => {
   require('../src/server');
 };
 
+const sandbox = sinon.sandbox.create();
+
 describe('main server script', function () {
-  let server, app;
+  let server, app, configSpy, dbSpy, permSpy, routeSpy, clientSpy;
 
   beforeEach(() => {
-    server = getServer();
+    configSpy = sandbox.spy(Server.prototype, 'config');
+    dbSpy = sandbox.spy(Server.prototype, 'database');
+    permSpy = sandbox.spy(Server.prototype, 'permissions');
+    routeSpy = sandbox.spy(Server.prototype, 'routes');
+    clientSpy = sandbox.spy(Server.prototype, 'client');
+    server = Server.bootstrap();
     app = server.app;
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('configures itself', function () {
+    expect(configSpy.called).to.equal(true);
+  });
+
+  it('initializes the database', function () {
+
+  });
+
+  it('initializes permissions', function () {
+
+  });
+
+  it('initializes routes', function () {
+
+  });
+
+  it('initializes client app', function () {
+
   });
 
   it('mongoose debug mode is disabled by default', function () {
@@ -41,16 +73,28 @@ describe('main server script', function () {
     it('disables mongoose debug mode if specified in config', function () {
       config['db']['debug'] = false;
       reloadCache();
-      server = getServer();
+      server = Server.bootstrap();
       app = server.app;
       expect(mongoose.get('debug')).to.eq(false);
     });
   });
 
   describe('mongo connection', function () {
+    let connectSpy, server, app;
+
+    beforeEach(() => {
+      reloadCache();
+      connectSpy = sinon.spy(mongoose, 'connect');
+      server = Server.bootstrap();
+      app = server.app;
+    });
+
+    afterEach(() => {
+      mongoose.connect['restore']();
+    });
 
     // it('connects to mongodb', function () {
-      // @TODO
+    //   expect(connectSpy.calledOnce).to.equal(true);
     // });
   });
 
