@@ -1,7 +1,6 @@
-import _isObject = require('lodash.isobject');
-import escape = require('validator/lib/escape');
-import trim = require('validator/lib/trim');
-
+const _isObject = require('lodash.isobject');
+const escape = require('validator/lib/escape');
+const trim = require('validator/lib/trim');
 const createDOMPurify = require('dompurify');
 import * as jsdom from 'jsdom';
 const window = jsdom.jsdom('', {

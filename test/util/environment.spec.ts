@@ -1,5 +1,4 @@
-import chai = require('chai');
-import config = require('config');
+import * as chai from 'chai';
 
 const expect = chai.expect;
 

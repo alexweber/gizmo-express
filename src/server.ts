@@ -1,6 +1,5 @@
-import path = require('path');
-import fs = require('fs');
-
+import * as path from 'path';
+import * as fs from 'fs';
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as logger from 'morgan';

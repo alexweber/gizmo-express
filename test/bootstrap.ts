@@ -1,13 +1,13 @@
 // Bootstrap tests.
 
-import chai = require('chai');
-import sinon = require('sinon');
+import * as chai from 'chai';
+import * as sinon from 'sinon';
 
 // Chai plugins.
-import chaiHttp = require('chai-http');
+const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-import sinonChai = require('sinon-chai');
+import * as sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 
 // Sinon plugins.
@@ -19,7 +19,7 @@ import mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 // Mock Redis.
-const mock = require('mock-require');
+import * as mock from 'mock-require';
 
 mock('redis', {
   createClient: function () {
