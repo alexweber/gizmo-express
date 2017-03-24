@@ -1,6 +1,6 @@
-import mongoose = require('mongoose');
+import { Document } from 'mongoose';
 
-export interface IUser extends mongoose.Document {
+export interface IUser extends Document {
   id: string;
   name: string;
   created: Date;

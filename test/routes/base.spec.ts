@@ -1,10 +1,11 @@
-import chai = require('chai');
-import sinon = require('sinon');
-import config = require('config');
-import express = require('express');
+import * as chai from 'chai';
+import * as sinon from 'sinon';
+import * as config from 'config';
+import * as express from 'express';
 const Router = express.Router();
 
 import { DummyRouter } from '../fixtures/dummyRouters';
+
 const expect = chai.expect;
 const sandbox = sinon.sandbox.create();
 

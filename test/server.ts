@@ -1,7 +1,7 @@
-import chai = require('chai');
-import sinon = require('sinon');
-import mongoose = require('mongoose');
-import config = require('config');
+import * as chai from 'chai';
+import * as sinon from 'sinon';
+import * as mongoose from 'mongoose';
+import * as config from 'config';
 
 const expect = chai.expect;
 

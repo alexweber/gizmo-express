@@ -1,5 +1,4 @@
-import mongoose = require('mongoose');
-import { Document, Query, Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 import { IController } from './controller.interface';
 

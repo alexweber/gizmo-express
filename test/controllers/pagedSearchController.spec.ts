@@ -1,5 +1,4 @@
-import chai = require('chai');
-import sinon = require('sinon');
+import * as chai from 'chai';
 
 const expect = chai.expect;
 

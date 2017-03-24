@@ -3,7 +3,7 @@ import escape = require('validator/lib/escape');
 import trim = require('validator/lib/trim');
 
 const createDOMPurify = require('dompurify');
-const jsdom = require('jsdom');
+import * as jsdom from 'jsdom';
 const window = jsdom.jsdom('', {
   features: {
     FetchExternalResources: false,

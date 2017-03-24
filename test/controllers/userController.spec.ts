@@ -1,8 +1,8 @@
-import chai = require('chai');
-import sinon = require('sinon');
+import * as chai from 'chai';
+import * as sinon from 'sinon';
 
 // Mongoose mocking.
-import mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 

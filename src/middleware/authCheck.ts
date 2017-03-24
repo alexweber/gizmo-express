@@ -1,5 +1,5 @@
-import jwt = require('express-jwt');
-import config = require('config');
+import * as jwt from 'express-jwt';
+import * as config from 'config';
 
 // JWT middleware for token validation for Auth0.
 const authCheck = jwt({

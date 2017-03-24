@@ -1,17 +1,16 @@
-import chai = require('chai');
-import config = require('config');
-import express = require('express');
+import * as chai from 'chai';
 
 // Mongoose mocking.
-import mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 
-const expect = chai.expect;
 import { Server } from '../../src/server';
 
 import { DummyCrudRouter } from '../fixtures/dummyRouters';
 import { DummyController } from '../fixtures/dummyControllers';
+
+const expect = chai.expect;
 
 describe('CrudRouter', function () {
   const url = '/v1/foo';

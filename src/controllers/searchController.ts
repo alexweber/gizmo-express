@@ -1,9 +1,8 @@
 import { Request } from 'express';
-import { Document } from 'mongoose';
+import { Document, Query } from 'mongoose';
 
 import { ISearchParams } from '../routes/interfaces/searchParams.interface';
 import stripAccents from '../util/stripAccents';
-import { Query } from 'mongoose';
 import sanitize from '../util/sanitize';
 
 export abstract class SearchController {

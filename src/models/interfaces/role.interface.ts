@@ -1,6 +1,6 @@
-import mongoose = require('mongoose');
+import { Document } from 'mongoose';
 
-export interface IRole extends mongoose.Document {
+export interface IRole extends Document {
   id: string;
   name: string;
   description?: string;

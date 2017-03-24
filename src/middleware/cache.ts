@@ -1,6 +1,6 @@
-import apicache = require('apicache');
-import config = require('config');
-import redis = require('redis');
+import * as apicache from 'apicache';
+import * as config from 'config';
+import * as redis from 'redis';
 
 // @TODO add type when @types/apicache is available.
 const options: any = {

@@ -1,13 +1,13 @@
-import chai = require('chai');
-import sinon = require('sinon');
-import apicache = require('apicache');
-import config = require('config');
-
-const expect = chai.expect;
+import * as chai from 'chai';
+import * as sinon from 'sinon';
+import * as config from 'config';
+import * as apicache from 'apicache';
 
 import cache from '../../src/middleware/cache';
 import { onlyStatus200s } from '../../src/middleware/cache';
 import { purgeCache } from '../bootstrap';
+
+const expect = chai.expect;
 
 // Hacky-ass helper.
 const reloadCache = () => {

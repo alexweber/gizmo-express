@@ -8,11 +8,11 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as config from 'config';
 import * as errorHandler from 'errorhandler';
+import * as acl from 'acl';
 import mongoose = require('mongoose');
 import { Connection } from 'mongoose';
-import acl = require('acl');
-import { debug } from './util/debug';
 
+import { debug } from './util/debug';
 import { IndexRouter } from './routes/index';
 import { AdminRouter } from './routes/admin';
 import { BaseRouter } from './routes/base';
@@ -221,7 +221,7 @@ export class Server {
    * @param name {String}
    * @returns {BaseRouter|boolean}
    */
-  public getRouteHandler (name: string): BaseRouter|false {
+  public getRouteHandler (name: string): BaseRouter | false {
     return this.routeHandlers[name] || false;
   }
 }

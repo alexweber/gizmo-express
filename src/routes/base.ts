@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import config = require('config');
+import * as config from 'config';
 
 export abstract class BaseRouter {
   // The route prefix, contains at the very least the API version.

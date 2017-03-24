@@ -1,5 +1,5 @@
-import mongoose = require('mongoose');
-import mongoosePaginate = require('mongoose-paginate');
+import * as mongoose from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate';
 
 const Schema = mongoose.Schema;
 

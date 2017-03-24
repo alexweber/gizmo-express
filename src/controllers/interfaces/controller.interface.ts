@@ -1,4 +1,3 @@
-import mongoose = require('mongoose');
 import { Document, Types } from 'mongoose';
 
 export interface IController {

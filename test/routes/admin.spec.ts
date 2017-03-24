@@ -1,5 +1,5 @@
-import chai = require('chai');
-import sinon = require('sinon');
+import * as chai from 'chai';
+import * as sinon from 'sinon';
 
 import { Server } from '../../src/server';
 
