@@ -12,5 +12,5 @@ export interface ISimpleSearchController extends IController {
    *
    * @return {Promise<(Document|Object)[]>} The found documents, if any.
    */
-  find (params: ISearchParams): Promise<(Document|Object)[]>;
+  find (params: ISearchParams): Promise<(Document | Object)[]>;
 }

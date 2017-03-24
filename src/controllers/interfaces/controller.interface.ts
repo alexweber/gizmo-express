@@ -10,7 +10,7 @@ export interface IController {
    *
    * @return {Promise<Document|Object>}>
    */
-  load (id: Types.ObjectId, lean?: boolean): Promise<Document|Object>;
+  load (id: Types.ObjectId, lean?: boolean): Promise<Document | Object>;
 
   /**
    * Loads all documents.
@@ -19,5 +19,5 @@ export interface IController {
    *
    * @return {Promise<(Document|Object)[]>}>
    */
-  loadAll (lean?: boolean): Promise<(Document|Object)[]>;
+  loadAll (lean?: boolean): Promise<(Document | Object)[]>;
 }

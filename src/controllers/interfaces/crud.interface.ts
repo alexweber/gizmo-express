@@ -12,7 +12,7 @@ export interface ICrudController extends IController {
    *
    * @return {Promise<Document|Object>} The saved document.
    */
-  create (data: Object, lean?: boolean): Promise<Document|Object>;
+  create (data: Object, lean?: boolean): Promise<Document | Object>;
 
   /**
    * Updates a document.
@@ -23,7 +23,7 @@ export interface ICrudController extends IController {
    *
    * @return {Promise<Document|Object>} The saved document.
    */
-  update (id: Types.ObjectId, data: Object, lean?: boolean): Promise<Document|Object>;
+  update (id: Types.ObjectId, data: Object, lean?: boolean): Promise<Document | Object>;
 
   /**
    * Removes a document.
@@ -44,5 +44,5 @@ export interface ICrudController extends IController {
    *
    * @return {Promise<Document|Object>} The saved document.
    */
-  save (conditions: Object, data: Object, upsert?: boolean, lean?: boolean): Promise<Document|Object>;
+  save (conditions: Object, data: Object, upsert?: boolean, lean?: boolean): Promise<Document | Object>;
 }
