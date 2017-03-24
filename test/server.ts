@@ -16,41 +16,43 @@ const reloadCache = () => {
 
 const sandbox = sinon.sandbox.create();
 
-describe('main server script', function () {
-  let server, app, configSpy, dbSpy, permSpy, routeSpy, clientSpy;
+describe('server', () => {
+  describe('main server script', function () {
+    let server, app, configSpy, dbSpy, permSpy, routeSpy, clientSpy;
 
-  beforeEach(() => {
-    configSpy = sandbox.spy(Server.prototype, 'config');
-    dbSpy = sandbox.spy(Server.prototype, 'database');
-    permSpy = sandbox.spy(Server.prototype, 'permissions');
-    routeSpy = sandbox.spy(Server.prototype, 'routes');
-    clientSpy = sandbox.spy(Server.prototype, 'client');
-    server = Server.bootstrap();
-    app = server.app;
-  });
+    beforeEach(() => {
+      configSpy = sandbox.spy(Server.prototype, 'config');
+      dbSpy = sandbox.spy(Server.prototype, 'database');
+      permSpy = sandbox.spy(Server.prototype, 'permissions');
+      routeSpy = sandbox.spy(Server.prototype, 'routes');
+      clientSpy = sandbox.spy(Server.prototype, 'client');
+      server = Server.bootstrap();
+      app = server.app;
+    });
 
-  afterEach(() => {
-    sandbox.restore();
-  });
+    afterEach(() => {
+      sandbox.restore();
+    });
 
-  it('configures itself', function () {
-    expect(configSpy.called).to.equal(true);
-  });
+    it('configures itself', function () {
+      expect(configSpy.called).to.equal(true);
+    });
 
-  it('initializes the database', function () {
+    it('initializes the database', function () {
+      expect(dbSpy.called).to.equal(true);
+    });
 
-  });
+    it('initializes permissions', function () {
+      expect(permSpy.called).to.equal(true);
+    });
 
-  it('initializes permissions', function () {
+    it('initializes routes', function () {
+      expect(routeSpy.called).to.equal(true);
+    });
 
-  });
-
-  it('initializes routes', function () {
-
-  });
-
-  it('initializes client app', function () {
-
+    it('initializes client app', function () {
+      expect(clientSpy.called).to.equal(true);
+    });
   });
 
   it('mongoose debug mode is disabled by default', function () {
@@ -58,23 +60,28 @@ describe('main server script', function () {
   });
 
   describe('debug mode', function () {
-    before(() => {
-      config['db']['debug'] = true;
-    });
+    let server;
 
-    after(() => {
+    afterEach(() => {
       config['db']['debug'] = false;
+      reloadCache();
     });
 
     it('enables mongoose debug mode if specified in config', function () {
+      config['db']['debug'] = true;
+      reloadCache();
+      purgeCache('mongoose');
+      require('mongoose');
+      server = Server.bootstrap();
       expect(mongoose.get('debug')).to.eq(true);
     });
 
     it('disables mongoose debug mode if specified in config', function () {
       config['db']['debug'] = false;
       reloadCache();
+      purgeCache('mongoose');
+      require('mongoose');
       server = Server.bootstrap();
-      app = server.app;
       expect(mongoose.get('debug')).to.eq(false);
     });
   });
@@ -100,12 +107,12 @@ describe('main server script', function () {
 
   describe('known model discovery', function () {
     it('includes the role model', function () {
-      const loaded = moduleLoaded('../src/models/role');
+      const loaded = moduleLoaded('../src/models/role.model');
       expect(loaded).to.eq(true);
     });
 
     it('includes the user model', function () {
-      const loaded = moduleLoaded('../src/models/user');
+      const loaded = moduleLoaded('../src/models/user.model');
       expect(loaded).to.eq(true);
     });
 
@@ -120,6 +127,13 @@ describe('main server script', function () {
   });
 
   describe('getRouteHandler()', function () {
+    let app, server;
+
+    beforeEach(() => {
+      server = Server.bootstrap();
+      app = server.app;
+    });
+
     it('exists', function () {
       expect(server).to.respondTo('getRouteHandler');
     });
