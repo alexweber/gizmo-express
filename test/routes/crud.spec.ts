@@ -8,7 +8,7 @@ const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 
 const expect = chai.expect;
-import { getServer } from '../bootstrap';
+import { Server } from '../../src/server';
 
 import { DummyCrudRouter } from '../fixtures/dummyRouters';
 import { DummyController } from '../fixtures/dummyControllers';
@@ -27,7 +27,7 @@ describe('CrudRouter', function () {
   });
 
   beforeEach(done => {
-    const server = getServer();
+    const server = Server.bootstrap();
     app = server.app;
     router = server.router;
     mockgoose.helper.reset().then(() => {

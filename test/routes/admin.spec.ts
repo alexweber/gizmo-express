@@ -3,12 +3,16 @@ import sinon = require('sinon');
 
 const expect = chai.expect;
 
-import { getServer } from '../bootstrap';
-const server = getServer();
-const app = server.app;
+import { Server } from '../../src/server';
 
 describe('routes/admin', () => {
   const url = '/v1/admin';
+  let app, server;
+
+  beforeEach(() => {
+    server = Server.bootstrap();
+    app = server.app;
+  });
 
   it('should exist', function () {
     return chai.request(app).get(url).then(res => {
