@@ -1,9 +1,10 @@
 import chai = require('chai');
 import sinon = require('sinon');
 
-const expect = chai.expect;
-
 import { Server } from '../../src/server';
+
+const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 describe('routes/index', function () {
   const url = '/v1';
@@ -12,6 +13,10 @@ describe('routes/index', function () {
   beforeEach(() => {
     server = Server.bootstrap();
     app = server.app;
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('should exist', function () {
@@ -38,11 +43,7 @@ describe('routes/index', function () {
 
     beforeEach(function () {
       router = server.getRouteHandler('index');
-      spy = sinon.spy(router, 'index');
-    });
-
-    afterEach(function () {
-      router.index.restore();
+      spy = sandbox.spy(router, 'index');
     });
 
     it('should call the index() method', function () {

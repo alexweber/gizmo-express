@@ -1,9 +1,10 @@
 import chai = require('chai');
 import sinon = require('sinon');
 
-const expect = chai.expect;
-
 import { Server } from '../../src/server';
+
+const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 describe('routes/admin', () => {
   const url = '/v1/admin';
@@ -12,6 +13,10 @@ describe('routes/admin', () => {
   beforeEach(() => {
     server = Server.bootstrap();
     app = server.app;
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('should exist', function () {

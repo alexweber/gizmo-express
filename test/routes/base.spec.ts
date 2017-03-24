@@ -4,8 +4,9 @@ import config = require('config');
 import express = require('express');
 const Router = express.Router();
 
-const expect = chai.expect;
 import { DummyRouter } from '../fixtures/dummyRouters';
+const expect = chai.expect;
+const sandbox = sinon.sandbox.create();
 
 describe('BaseRouter', function () {
   let oldVersion, errSpy;
@@ -15,12 +16,12 @@ describe('BaseRouter', function () {
   });
 
   beforeEach(() => {
-    errSpy = sinon.spy(console, 'error');
+    errSpy = sandbox.spy(console, 'error');
   });
 
   afterEach(() => {
     config['api']['version'] = oldVersion;
-    console.error['restore']();
+    sandbox.restore();
   });
 
   it('base router sets prefix with api version', function () {
