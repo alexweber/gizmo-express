@@ -171,7 +171,7 @@ export class Server {
 
     // Init models recursively.
     fs.readdirSync(mongooseModels)
-      .filter(file => file.substr(-3) === '.js')
+      .filter(file => file.indexOf('.model.') !== -1 && file.substr(-4) !== '.map')
       .forEach(file => require(path.join(mongooseModels, file)));
 
     // Finally, connect to Mongo and Store connection.
