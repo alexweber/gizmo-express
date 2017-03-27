@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://bitbucket.org/alexweber/gizmo-express/compare/v0.1.0...v0.2.0) (2017-03-27)
+
+
+### Bug Fixes
+
+* automatic model discovery logic ([b057398](https://bitbucket.org/alexweber/gizmo-express/commits/b057398))
+* mongoose model already compiled edge case erorr ([0bb5533](https://bitbucket.org/alexweber/gizmo-express/commits/0bb5533))
+* mongoose model auto-discovery ([27f5235](https://bitbucket.org/alexweber/gizmo-express/commits/27f5235))
+* setting mongoose debug mode from config ([31eb6b4](https://bitbucket.org/alexweber/gizmo-express/commits/31eb6b4))
+* **controllers:** PageSearchedController proper lean option default handing ([79a0f81](https://bitbucket.org/alexweber/gizmo-express/commits/79a0f81))
+
+
+### Code Refactoring
+
+* move lean option to ISearchParams ([fc179e2](https://bitbucket.org/alexweber/gizmo-express/commits/fc179e2))
+
+
+### Features
+
+* add simple sanitizer util ([6792088](https://bitbucket.org/alexweber/gizmo-express/commits/6792088))
+* buildout simple sanitizer util ([8119db4](https://bitbucket.org/alexweber/gizmo-express/commits/8119db4))
+* ensure all tests pass before releasing a new version ([84b4cfc](https://bitbucket.org/alexweber/gizmo-express/commits/84b4cfc))
+* lint code before testing ([319215b](https://bitbucket.org/alexweber/gizmo-express/commits/319215b))
+* support apicache redis via config ([f0c34d5](https://bitbucket.org/alexweber/gizmo-express/commits/f0c34d5))
+* use sanitize util wherever applicable ([ca9c7b3](https://bitbucket.org/alexweber/gizmo-express/commits/ca9c7b3))
+* **controllers:** add setParams() helper to reduce code duplication for simple search controllers ([81c3c94](https://bitbucket.org/alexweber/gizmo-express/commits/81c3c94))
+* **util:** xss filtering using DOMPurify ([9b86e55](https://bitbucket.org/alexweber/gizmo-express/commits/9b86e55))
+
+
+### BREAKING CHANGES
+
+* The "lean" 2nd argument to find() and findPaged() has been removed and merged into the first argument
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2017-03-18)
 
