@@ -6,23 +6,37 @@ import * as mongoose from 'mongoose';
 import * as config from 'config';
 import { Connection }  from 'mongoose';
 
-const expect = chai.expect;
+// Mongoose mocking.
+const Mockgoose = require('mockgoose').Mockgoose;
+const mockgoose = new Mockgoose(mongoose);
 
 import { Server } from '../src/server';
 import { moduleLoaded, purgeCache } from './bootstrap';
+
+const expect = chai.expect;
 
 // Hacky-ass helper.
 const reloadCache = () => {
   purgeCache('../src/server');
   require('../src/server');
-  mongoose.disconnect();
-  purgeCache('mongoose');
-  require('mongoose');
 };
 
 const sandbox = sinon.sandbox.create();
 
 describe('server', () => {
+
+  before(done => {
+    mockgoose.prepareStorage().then(function () {
+      reloadCache();
+      done();
+    });
+  });
+
+  after(done => {
+    mongoose.disconnect(function (err) {
+      done(err);
+    });
+  });
 
   afterEach(() => {
     sandbox.restore();
@@ -133,15 +147,49 @@ describe('server', () => {
       const loaded = moduleLoaded('../src/models/user.model');
       expect(loaded).to.eq(true);
     });
-
-    it("doesn't include fake model", function () {
-      const loaded = moduleLoaded('../src/models/fake');
-      expect(loaded).to.eq(false);
-    });
   });
 
   describe('automatic model discovery', function () {
-    // @TODO figure out how to test this.
+    before(() => {
+      reloadCache();
+      Server.bootstrap();
+    });
+
+    it("doesn't include fake model", function () {
+      const loaded = moduleLoaded('../src/models/fake.model');
+      expect(loaded).to.eq(false);
+    });
+
+    describe('fake model', function () {
+      let target;
+
+      before(() => {
+        target = path.join(__dirname, '../src/models/_fake.model.ts');
+        fs.writeFile(target, `const FakeModel = function () {}; export default FakeModel;`, function (err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+      });
+
+      beforeEach(() => {
+        reloadCache();
+        Server.bootstrap();
+      });
+
+      after(() => {
+        fs.unlink(target, err => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      });
+
+      it('includes fake model after adding it', function () {
+        const loaded = moduleLoaded('../src/models/_fake.model');
+        expect(loaded).to.eq(true);
+      });
+    });
   });
 
   describe('getRouteHandler()', function () {

@@ -180,6 +180,7 @@ export class Server {
     this.db = mongoose.connection;
 
     this.db.on('error', err => {
+      /* istanbul ignore next */
       if (this.app.get('env') !== 'test') {
         debug(`[db] ${err}`);
       }
