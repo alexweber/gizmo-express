@@ -16,9 +16,9 @@
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.0.tgz#2633470a4eabe9a47cd9a45fdb20ed5f93407bca"
 
-"@types/body-parser@^1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.1.tgz#4c1dc2d6ace3b8f74447020493aa19c5d8287d9a"
+"@types/body-parser@^1.16.2":
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.2.tgz#4407d9924ffb91198103b9ece69bc1a86a3a0969"
   dependencies:
     "@types/express" "*"
     "@types/node" "*"
@@ -78,9 +78,9 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/lodash.isobject@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@types/lodash.isobject/-/lodash.isobject-3.0.1.tgz#b786f627a2ad9dd4a2de1a904b06570523fb680b"
+"@types/lodash.isobject@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.isobject/-/lodash.isobject-3.0.2.tgz#fb1aabb870e04e6e48fba68ff14b0e527c7a3908"
   dependencies:
     "@types/lodash" "*"
 
@@ -108,9 +108,16 @@
   dependencies:
     "@types/mongoose" "*"
 
-"@types/mongoose@*", "@types/mongoose@^4.7.8":
+"@types/mongoose@*":
   version "4.7.8"
   resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-4.7.8.tgz#9dd829635c75198b3ba60b1626fd65ad5698ac8c"
+  dependencies:
+    "@types/mongodb" "*"
+    "@types/node" "*"
+
+"@types/mongoose@^4.7.9":
+  version "4.7.9"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-4.7.9.tgz#55131099e2ecf481081b60da954482c26ca24ac1"
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"
@@ -151,11 +158,7 @@
   dependencies:
     "@types/sinon" "*"
 
-"@types/sinon@*":
-  version "1.16.35"
-  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-1.16.35.tgz#ee687cc42d1a79448256f1c012a33a0840e85c5c"
-
-"@types/sinon@^1.16.36":
+"@types/sinon@*", "@types/sinon@^1.16.36":
   version "1.16.36"
   resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-1.16.36.tgz#74bb6ed7928597c1b3fb1b009005e94dc6eae357"
 
@@ -2714,9 +2717,9 @@ mongoose-paginate@^5.0.3:
   dependencies:
     bluebird "3.0.5"
 
-mongoose@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.9.1.tgz#e621d9e7356f46d1e39980a71063857405fa9099"
+mongoose@^4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.9.2.tgz#df137675eed76a14dc1e6952ede54497c7547926"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
@@ -3953,9 +3956,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.1.tgz#4862b662b988a4c8ff691cc7969622d24db76ae9"
+typescript@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
 
 uglify-js@^2.6:
   version "2.8.11"
