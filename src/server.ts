@@ -180,7 +180,9 @@ export class Server {
     this.db = mongoose.connection;
 
     this.db.on('error', err => {
-      debug(`[db] ${err}`);
+      if (this.app.get('env') !== 'test') {
+        debug(`[db] ${err}`);
+      }
     });
 
     this.db.once('open', () => {
