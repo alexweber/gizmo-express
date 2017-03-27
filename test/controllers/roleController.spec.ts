@@ -1,5 +1,6 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
+import * as config from 'config';
 
 // Mongoose mocking.
 import * as mongoose from 'mongoose';
@@ -44,7 +45,7 @@ describe('controllers/roleController', function () {
   describe('mongoose calls', function () {
     before(done => {
       mockgoose.prepareStorage().then(function () {
-        mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+        mongoose.connect(<string>config.get('db.dsn'), function (err) {
           done(err);
         });
       });
@@ -396,7 +397,7 @@ describe('controllers/roleController', function () {
       before(done => {
         mongoose.disconnect();
         mockgoose.prepareStorage().then(function () {
-          mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+          mongoose.connect(<string>config.get('db.dsn'), function (err) {
             done(err);
           });
         });

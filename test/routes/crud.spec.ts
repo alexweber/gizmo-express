@@ -1,4 +1,5 @@
 import * as chai from 'chai';
+import * as config from 'config';
 
 // Mongoose mocking.
 import * as mongoose from 'mongoose';
@@ -19,7 +20,7 @@ describe('CrudRouter', function () {
   before(done => {
     mongoose.disconnect();
     mockgoose.prepareStorage().then(function () {
-      mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+      mongoose.connect(<string>config.get('db.dsn'), function (err) {
         done(err);
       });
     });
