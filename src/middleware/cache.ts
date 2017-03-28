@@ -4,7 +4,9 @@ import * as redis from 'redis';
 
 // @TODO add type when @types/apicache is available.
 const options: any = {
-  debug: config.get('cache.debug')
+  debug: config.get('cache.debug'),
+  // 3 hour default duration.
+  defaultDuration: 3600000 * 3
 };
 
 const redisHost = config.get('cache.redis');
