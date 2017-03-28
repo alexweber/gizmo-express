@@ -17,7 +17,7 @@ apicache.options(options);
 // Helper to only cache successfull requests.
 const onlyStatus200s = req => req.statusCode >= 200 && req.statusCode < 300;
 
-const cache = period => {
+const cache = (period?: string) => {
   return apicache.middleware(period, onlyStatus200s);
 };
 
