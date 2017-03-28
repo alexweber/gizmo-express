@@ -59,13 +59,13 @@ describe('middleware/cache', function () {
   });
 
   it('only caches successfull requests', function () {
-    expect(onlyStatus200s({ statusCode: 199 })).to.deep.equal(false);
-    expect(onlyStatus200s({ statusCode: 200 })).to.deep.equal(true);
-    expect(onlyStatus200s({ statusCode: 201 })).to.deep.equal(true);
-    expect(onlyStatus200s({ statusCode: 250 })).to.deep.equal(true);
-    expect(onlyStatus200s({ statusCode: 299 })).to.deep.equal(true);
-    expect(onlyStatus200s({ statusCode: 300 })).to.deep.equal(false);
-    expect(onlyStatus200s({ statusCode: 400 })).to.deep.equal(false);
+    expect(onlyStatus200s(null, { statusCode: 199 })).to.deep.equal(false);
+    expect(onlyStatus200s(null, { statusCode: 200 })).to.deep.equal(true);
+    expect(onlyStatus200s(null, { statusCode: 201 })).to.deep.equal(true);
+    expect(onlyStatus200s(null, { statusCode: 250 })).to.deep.equal(true);
+    expect(onlyStatus200s(null, { statusCode: 299 })).to.deep.equal(true);
+    expect(onlyStatus200s(null, { statusCode: 300 })).to.deep.equal(false);
+    expect(onlyStatus200s(null, { statusCode: 400 })).to.deep.equal(false);
   });
 
   it('calls apicache middleware with the correct parameters', function () {

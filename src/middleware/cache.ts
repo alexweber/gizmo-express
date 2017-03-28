@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import * as apicache from 'apicache';
 import * as config from 'config';
 import * as redis from 'redis';
@@ -17,7 +18,9 @@ if (redisHost !== false) {
 apicache.options(options);
 
 // Helper to only cache successfull requests.
-const onlyStatus200s = req => req.statusCode >= 200 && req.statusCode < 300;
+const onlyStatus200s = (req: Request|any, res?: Response|any) => {
+  return res.statusCode >= 200 && res.statusCode < 300;
+};
 
 const cache = (period?: string) => {
   return apicache.middleware(period, onlyStatus200s);
