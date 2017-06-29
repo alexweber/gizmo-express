@@ -214,4 +214,6 @@ describe('server', () => {
       expect(server.getRouteHandler('index')).to.be.an('object');
     });
   });
+
+  // @TODO tests for static routes?
 });
